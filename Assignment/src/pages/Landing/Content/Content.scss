@@ -1,0 +1,99 @@
+.mainInfoBox {
+  display: flex;
+  align-items: center;
+  gap: 15.7rem;
+  margin: 5rem 0;
+
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  .mainSubTitleBox {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 29rem;
+
+    .mainSubTitle {
+      font-size: 4.8rem;
+      font-weight: 700;
+
+      .save {
+        background: var(--gra-red-to-sky);
+      }
+
+      .manage {
+        background: var(--gra-sky-to-yellow);
+      }
+
+      .share {
+        background: var(--gra-blue-to-green);
+      }
+
+      .search {
+        background: var(--gra-red-to-mint);
+      }
+
+      .accent {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: normal;
+        letter-spacing: -0.3px;
+      }
+    }
+
+    .subDescription {
+      color: var(--gray80);
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 150%;
+      word-break: keep-all;
+    }
+  }
+
+  img {
+    width: 55rem;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .mainInfoBox {
+    max-width: 70rem;
+    gap: 5rem;
+  }
+
+  .mainSubTitleBox {
+    width: 26.2rem;
+  }
+
+  .mainInfoBox > img {
+    width: 38rem;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 767px) {
+  .mainInfoBox {
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 3.2rem;
+    gap: 2.4rem;
+    width: 100%;
+
+    &:nth-child(even) {
+      flex-direction: column;
+    }
+  }
+
+  .mainSubTitleBox {
+    width: 100%;
+  }
+
+  .mainSubTitle {
+    font-size: 2.4rem;
+  }
+
+  .mainInfoBox > img {
+    width: 100%;
+  }
+}

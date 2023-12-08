@@ -1,0 +1,41 @@
+@import '/src/styles/mixin.scss';
+
+.footer {
+  @include flexSetting(space-between);
+  position: relative;
+  padding: 3.2rem 10.4rem 6.4rem;
+  background: var(--black);
+  text-align: center;
+  font-family: Arial;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.copyRight {
+  color: var(--gray80);
+}
+
+.linkBox {
+  display: flex;
+  gap: 3rem;
+  color: var(--white);
+}
+
+.iconBox {
+  display: flex;
+  gap: 1.2rem;
+}
+
+@media screen and (min-width: 375px) and (max-width: 767px) {
+  .footer {
+    position: relative;
+    padding: 3.2rem 3.2rem 10.4rem;
+  }
+
+  .copyRight {
+    position: absolute;
+    left: 3.2rem;
+    bottom: 3.2rem;
+    color: var(--gray80);
+  }
+}
