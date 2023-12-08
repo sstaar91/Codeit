@@ -1,0 +1,77 @@
+@import '/src/styles/mixin.scss';
+
+.titleWrap {
+  @include flexSetting;
+  padding-top: 17rem;
+  background-color: var(--gray-bg);
+}
+
+.titleBox {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 4rem;
+  max-width: 120rem;
+}
+
+.mainTitle {
+  font-size: 6.4rem;
+  font-weight: 700;
+  line-height: 8rem;
+  text-align: center;
+}
+
+.mainTitleAccent {
+  background: var(--gra-pri-to-red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mainTitleImg {
+  margin-top: 5rem;
+  width: 100%;
+}
+
+.contentWrap {
+  @include flexSetting;
+  flex-direction: column;
+  margin: 7rem auto;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .titleWrap {
+    padding-top: 13.9rem;
+  }
+
+  .titleBox {
+    max-width: 70rem;
+  }
+
+  .mainTitle {
+    max-width: 48rem;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 767px) {
+  .titleWrap {
+    padding-top: 9.2rem;
+  }
+
+  .mainTitle {
+    max-width: 24rem;
+    font-size: 3.2rem;
+    line-height: 4.2rem;
+  }
+
+  .mainLinkBtn {
+    width: 20rem;
+  }
+
+  .mainTitleImg {
+    margin: 0;
+  }
+
+  .contentWrap {
+    margin: 0 auto;
+  }
+}

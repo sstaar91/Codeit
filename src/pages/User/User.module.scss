@@ -1,0 +1,121 @@
+@import '/src/styles/mixin.scss';
+
+.loginBox {
+  @include flexSetting;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--gray-bg);
+}
+
+.logo {
+  width: 21rem;
+}
+
+.questionBox {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+  font-size: 1.6rem;
+}
+
+.question {
+  font-weight: 400;
+}
+
+.singupLink {
+  padding-bottom: 0.2rem;
+  border-bottom: 0.1rem solid var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+
+  &:visited,
+  &:link {
+    color: var(--primary);
+  }
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+  margin: 3rem 0 3.2rem;
+}
+
+.inputTitle {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-top: 1.2rem;
+}
+
+.userInput {
+  padding: 1.8rem 1.5rem;
+  margin: 1.2rem 0;
+  width: 100%;
+  border: 0.1rem solid var(--gray20);
+  border-radius: 0.8rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+
+  &:focus {
+    border: 0.1rem solid var(--primary);
+  }
+}
+
+.errorBorder {
+  border: 1px solid var(--red);
+}
+
+.errorMessage {
+  padding-left: 5px;
+  color: var(--red);
+}
+
+.passwordBox {
+  position: relative;
+}
+
+.eyeOff {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-90%);
+}
+
+.loginBtn {
+  margin-top: 1.2rem;
+  padding: 1.6rem 2rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--gra-btn-bg);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.socialBox {
+  @include flexSetting(space-between);
+  padding: 1.2rem 2.4rem;
+  width: 40rem;
+  border: 0.1rem solid var(--gray20);
+  border-radius: 8px;
+  background-color: var(--gray10);
+}
+
+.socialBoxTitle {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--gray100);
+}
+
+.iconBox {
+  display: flex;
+  gap: 16px;
+
+  img {
+    cursor: pointer;
+  }
+}

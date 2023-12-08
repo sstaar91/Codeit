@@ -1,0 +1,150 @@
+@import '/src/styles/mixin.scss';
+
+.searchLinkWrap {
+  @include flexSetting;
+  padding-top: 17rem;
+  background-color: var(--gray-bg);
+}
+
+.linkBox {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: 88rem;
+  padding: 1.6rem 2rem;
+  margin-bottom: 9rem;
+  border-radius: 1.5rem;
+  background-color: white;
+}
+
+.linkInput {
+  flex: 8;
+  font-size: 1.6rem;
+  border: none;
+}
+
+.resultWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding: 4rem 0;
+  margin: 0 auto 6rem;
+  max-width: 106rem;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+  border-radius: 1rem;
+  background-color: var(--white);
+}
+
+.searchInput {
+  width: 100%;
+  border: none;
+  background-color: inherit;
+}
+
+.filterWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filterBox {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  padding: 0.8rem 1.2rem;
+  width: max-content;
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  background-color: white;
+  text-align: center;
+  line-height: 1.5rem;
+
+  &:hover {
+    background-color: var(--gray10);
+    cursor: pointer;
+  }
+}
+
+.clicked {
+  background-color: var(--primary);
+  color: white;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.titleBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filterTitle {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.iconBox {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.cardBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.nothing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+  font-size: 1.6rem;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .resultWrap {
+    max-width: 75rem;
+  }
+
+  .cardBox {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.4rem;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 767px) {
+  .resultWrap {
+    max-width: 38rem;
+  }
+
+  .cardBox {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .titleBox {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+}

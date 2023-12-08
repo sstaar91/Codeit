@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  font-family: Pretendard;
+}
+
+:root {
+  --codeit: #a64eff;
+  --primary: #6d6afe;
+  --red: #ff5b56;
+  --black: #111322;
+  --white: #f5f5f5;
+  --gray100: #3e3e43;
+  --gray80: #6b6b6b;
+  --gray60: #9fa6b2;
+  --gray20: #ccd5e3;
+  --gray10: #e7effb;
+  --gray-bg: #f0f6ff;
+  --gra-btn-bg: linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%);
+  --gra-pri-to-red: linear-gradient(91deg, #6d6afe 17.28%, #ff9f9f 74.98%);
+  --gra-red-to-sky: linear-gradient(96deg, #fe8a8a 1.72%, #a4ceff 74.97%);
+  --gra-sky-to-yellow: linear-gradient(277deg, #6fbaff 59.22%, #ffd88b 93.66%);
+  --gra-blue-to-green: linear-gradient(
+    99deg,
+    #6d7ccd 19.76%,
+    rgba(82, 136, 133, 0.22) 52.69%
+  );
+  --gra-red-to-mint: linear-gradient(271deg, #fe578f -9.84%, #68e8f9 107.18%);
+}

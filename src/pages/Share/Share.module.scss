@@ -1,0 +1,77 @@
+@import '/src/styles/mixin.scss';
+
+.titleWrap {
+  @include flexSetting;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 10rem 0 6rem;
+  background-color: var(--gray-bg);
+}
+
+.userImg {
+  width: 6rem;
+  border-radius: 100%;
+}
+
+.userName {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.title {
+  margin-top: 1.2rem;
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.shareWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin: 0 auto;
+  padding: 4rem 0;
+  max-width: 106rem;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background-color: var(--white);
+}
+
+.searchBar {
+  background-color: inherit;
+  border: none;
+}
+
+.cardBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .shareWrap {
+    max-width: 70.4rem;
+  }
+
+  .cardBox {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.4rem;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 767px) {
+  .shareWrap {
+    max-width: 32.5rem;
+  }
+
+  .cardBox {
+    display: flex;
+    flex-direction: column;
+  }
+}
