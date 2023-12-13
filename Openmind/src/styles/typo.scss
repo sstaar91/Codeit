@@ -1,0 +1,119 @@
+@import './colors';
+@import './mediaQueries';
+
+$bold: 600;
+$regular: 400;
+
+@mixin h1 {
+  color: $gray_60;
+  font-size: 4rem;
+  font-weight: $bold;
+
+  @media #{$Mobile} {
+    font-size: 2.4rem;
+  }
+}
+
+@mixin h2 {
+  color: $gray_60;
+  font-size: 3.2rem;
+  font-weight: $bold;
+
+  @media #{$Mobile} {
+    font-size: 2.4rem;
+  }
+}
+
+@mixin h3 {
+  color: $gray_60;
+  font-size: 2.4rem;
+  font-weight: $regular;
+
+  @media #{$Mobile} {
+    font-size: 2rem;
+  }
+}
+
+@mixin body1 {
+  color: $gray_60;
+  font-size: 2rem;
+  font-weight: $regular;
+
+  @media #{$Mobile} {
+    font-size: 1.8rem;
+  }
+}
+
+@mixin body2 {
+  color: $gray_60;
+  font-size: 1.8rem;
+  font-weight: $regular;
+
+  @media #{$Mobile} {
+    font-size: 1.4rem;
+  }
+}
+
+@mixin body3 {
+  color: $gray_60;
+  font-size: 1.6rem;
+  font-weight: $regular;
+
+  @media #{$Mobile} {
+    font-size: 1.4rem;
+  }
+}
+
+@mixin description {
+  color: $black;
+  font-size: 1.6rem;
+  font-weight: $regular;
+}
+
+@mixin caption {
+  color: $black;
+  font-size: 1.4rem;
+  font-weight: $regular;
+}
+
+@mixin textStyle($size: base, $color: base) {
+  @if $size == h1 {
+    @include h1;
+    color: $color;
+  }
+
+  @if $size == h2 {
+    @include h2;
+    color: $color;
+  }
+
+  @if $size == h3 {
+    @include h3;
+    color: $color;
+  }
+
+  @if $size == body1 {
+    @include body1;
+    color: $color;
+  }
+
+  @if $size == body2 {
+    @include body2;
+    color: $color;
+  }
+
+  @if $size == body3 {
+    @include body3;
+    color: $color;
+  }
+
+  @if $size == description {
+    @include description;
+    color: $color;
+  }
+
+  @if $size == caption {
+    @include caption;
+    color: $color;
+  }
+}
