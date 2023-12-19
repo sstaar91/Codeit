@@ -1,0 +1,19 @@
+@import '../../styles/typo.scss';
+@import '../../styles/colors.scss';
+
+.pageNationBox {
+  @include textStyle(body1);
+  margin-top: 4rem;
+}
+
+.pageBtn {
+  width: 4rem;
+  height: 4rem;
+  background-color: inherit;
+  border: none;
+  border-radius: 0.8rem;
+
+  &:hover {
+    background-color: $pink_10;
+  }
+}

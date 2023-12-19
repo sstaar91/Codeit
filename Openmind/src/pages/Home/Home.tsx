@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postAxios } from '../../utils/axiosInstance';
 
+import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Cta from '../../components/Cta';
 
-import logo from '../../assets/images/logo.png';
 import css from './Home.module.scss';
 
 const Home = () => {
@@ -28,13 +28,19 @@ const Home = () => {
 
   return (
     <section className={css.container}>
-      <img className={css.logo} src={logo} alt="logo" />
+      <Logo size="main" />
       <div className={css.btnPosition}>
-        <Cta title="질문하러 가기 💕" color="soft" handleButton={() => {}} />
+        <Cta
+          title="질문하러 가기 💕"
+          color="soft"
+          handleButton={() => {
+            navigate('/list');
+          }}
+        />
       </div>
       <form className={css.inputForm} onSubmit={handelLogin}>
         <Input handleInput={handleInput} />
-        <Cta title="질문 받기" color="thick" />
+        <Cta title="질문 받기" color="thick" border="none" />
       </form>
     </section>
   );

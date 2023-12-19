@@ -1,0 +1,15 @@
+@import '../../styles/animation.scss';
+
+.logo {
+  cursor: pointer;
+  animation: 1s upAndDown infinite ease-in-out;
+}
+
+.main {
+  width: 25rem;
+}
+
+.list {
+  width: 15rem;
+  height: fit-content;
+}

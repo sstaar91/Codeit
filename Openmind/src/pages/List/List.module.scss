@@ -1,0 +1,41 @@
+@import '../../styles/mixin.scss';
+@import '../../styles/typo.scss';
+@import '../../styles/colors.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.nav {
+  @include flexSetting(center, between, row);
+  width: 100%;
+  justify-content: space-between;
+  padding: 4rem 0;
+}
+
+.title {
+  @include textStyle(h1);
+  margin-top: 4rem;
+  font-family: 'Gamja Flower', sans-serif;
+  text-align: center;
+}
+
+.dropdownWrap {
+  @include textStyle(caption);
+  @include flexSetting(center, center, row);
+  gap: 0.4rem;
+  margin-top: 1.2rem;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid $gray_50;
+  border-radius: 0.8rem;
+}
+
+.listBox {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
