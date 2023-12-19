@@ -1,4 +1,10 @@
+@import './colors.scss';
+
 * {
   box-sizing: border-box;
   font-family: Pretendard;
+}
+
+body {
+  background-color: $pink_10;
 }

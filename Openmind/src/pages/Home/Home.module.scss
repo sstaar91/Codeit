@@ -1,0 +1,47 @@
+@import '../../styles/mixin.scss';
+@import '../../styles/colors.scss';
+@import '../../styles/animation.scss';
+
+.container {
+  @include flexCenter;
+  position: relative;
+  margin: 0 auto;
+  max-width: 120rem;
+  height: 100vh;
+  gap: 2.4rem;
+}
+
+.btnPosition {
+  position: absolute;
+  top: 4.5rem;
+  right: 12rem;
+  border: 1px solid $pink_40;
+  border-radius: 0.8rem;
+}
+
+.logo {
+  width: 25rem;
+  animation: 1s upAndDown infinite ease-in-out;
+}
+
+.inputForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 3.2rem;
+  border-radius: 1.6rem;
+  background-color: $gray_10;
+  box-shadow: $shadow_1;
+}
+
+@media screen and (max-width: 768px) {
+  .btnPosition {
+    right: 5rem;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .btnPosition {
+    position: static;
+  }
+}

@@ -1,0 +1,32 @@
+@import '../../styles/colors.scss';
+
+.button {
+  padding: 1.2rem 2.4rem;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+}
+
+.thick {
+  background-color: $pink_40;
+  color: $gray_10;
+
+  &:hover {
+    background-color: $pink_50;
+  }
+}
+
+.soft {
+  background-color: $pink_20;
+  color: $gray_60;
+
+  &:hover {
+    background-color: $pink_30;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .button {
+    padding: 0.8rem 1.2rem;
+  }
+}

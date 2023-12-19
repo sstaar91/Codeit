@@ -1,0 +1,28 @@
+@import '../../styles/colors.scss';
+
+.inputBox {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 1.6rem;
+  width: 30.4rem;
+  border: 1px solid $gray_40;
+  border-radius: 0.8rem;
+}
+
+.nameInput {
+  padding-left: 0.4rem;
+  padding-top: 0.4rem;
+  width: 100%;
+  border: none;
+  font-size: 1.6rem;
+}
+
+.focus {
+  border: 1px solid $pink_40;
+}
+
+@media screen and (max-width: 375px) {
+  .inputBox {
+    width: 25.7rem;
+  }
+}

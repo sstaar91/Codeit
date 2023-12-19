@@ -65,13 +65,13 @@ $regular: 400;
 }
 
 @mixin description {
-  color: $black;
+  color: $gray_60;
   font-size: 1.6rem;
   font-weight: $regular;
 }
 
 @mixin caption {
-  color: $black;
+  color: $gray_60;
   font-size: 1.4rem;
   font-weight: $regular;
 }
