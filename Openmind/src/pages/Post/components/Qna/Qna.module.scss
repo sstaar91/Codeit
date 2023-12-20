@@ -1,0 +1,75 @@
+@import '/src/styles/typo.scss';
+@import '/src/styles/colors.scss';
+
+.qnaBox {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  padding: 3.2rem;
+  width: 62rem;
+  background-color: $gray_10;
+  border-radius: 1.6rem;
+  box-shadow: $shadow_2;
+}
+
+.status {
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.8rem;
+  width: fit-content;
+}
+
+.complete {
+  color: $pink_40;
+  border: 1px solid $pink_40;
+}
+
+.notYet {
+  color: $gray_40;
+  border: 1px solid $gray_40;
+}
+
+.date {
+  @include textStyle(caption, $gray_40);
+}
+
+.title {
+  @include textStyle(body2);
+  margin-top: 0.4rem;
+  margin-right: 0.8rem;
+}
+
+.answerBox {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.answer {
+  @include textStyle(description);
+  margin-top: 0.4rem;
+  line-height: 2.2rem;
+}
+
+.line {
+  border: 1px solid $gray_30;
+}
+
+.reactionBox {
+  display: flex;
+  gap: 3.2rem;
+}
+
+.reactionBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: inherit;
+  border: none;
+}
+
+.like {
+  filter: $blue;
+}
+
+.dislike {
+  filter: $red;
+}

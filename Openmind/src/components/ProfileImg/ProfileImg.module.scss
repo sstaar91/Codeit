@@ -1,0 +1,40 @@
+.profile {
+  border-radius: 100%;
+}
+
+.large {
+  width: 14rem;
+  height: 14rem;
+}
+
+.medium {
+  width: 6rem;
+  height: 6rem;
+}
+
+.small {
+  width: 4.8rem;
+  height: 4.8rem;
+}
+
+.extraSmall {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+@media screen and (max-width: 375px) {
+  .large {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .medium {
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+
+  .small {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+}

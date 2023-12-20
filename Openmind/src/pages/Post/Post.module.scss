@@ -1,0 +1,50 @@
+@import '/src/styles/mixin.scss';
+@import '/src/styles/typo.scss';
+@import '/src/styles/colors.scss';
+
+.container {
+  @include flexSetting;
+  position: relative;
+  gap: 2rem;
+  padding-top: 5rem;
+  overflow: scroll;
+}
+
+.profileName {
+  @include textStyle(h2);
+  font-weight: 400;
+}
+
+.shareBox {
+  display: flex;
+}
+
+.shareBtn {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+.questionWrap {
+  @include flexSetting;
+  gap: 1.6rem;
+  margin-top: 3rem;
+  padding: 1.6rem;
+  background-color: $pink_10;
+  border: 1px solid $pink_30;
+  border-radius: 1.6rem;
+}
+
+.questionNum {
+  @include textStyle(body1, $pink_50);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.btnPosition {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  padding: 2.4rem;
+}

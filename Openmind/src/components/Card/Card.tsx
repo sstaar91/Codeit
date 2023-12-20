@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import ProfileImg from '../ProfileImg';
 import Icon from '../Icon';
 
 import css from './Card.module.scss';
@@ -11,8 +12,8 @@ interface Props {
 
 const Card = ({ name, questionCount }: Props) => {
   return (
-    <Link className={css.cardBox} to="/">
-      <div className={css.profileImg}>img</div>
+    <Link className={css.cardBox} to="/post/1">
+      <ProfileImg url="" size="medium" />
       <div className={css.nickName}>{name}</div>
       <div className={css.infoBox}>
         <Icon title="comment" />

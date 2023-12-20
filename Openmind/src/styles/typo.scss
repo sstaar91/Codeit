@@ -5,7 +5,6 @@ $bold: 600;
 $regular: 400;
 
 @mixin h1 {
-  color: $gray_60;
   font-size: 4rem;
   font-weight: $bold;
 
@@ -15,7 +14,6 @@ $regular: 400;
 }
 
 @mixin h2 {
-  color: $gray_60;
   font-size: 3.2rem;
   font-weight: $bold;
 
@@ -25,7 +23,6 @@ $regular: 400;
 }
 
 @mixin h3 {
-  color: $gray_60;
   font-size: 2.4rem;
   font-weight: $regular;
 
@@ -35,7 +32,6 @@ $regular: 400;
 }
 
 @mixin body1 {
-  color: $gray_60;
   font-size: 2rem;
   font-weight: $regular;
 
@@ -45,7 +41,6 @@ $regular: 400;
 }
 
 @mixin body2 {
-  color: $gray_60;
   font-size: 1.8rem;
   font-weight: $regular;
 
@@ -55,7 +50,6 @@ $regular: 400;
 }
 
 @mixin body3 {
-  color: $gray_60;
   font-size: 1.6rem;
   font-weight: $regular;
 
@@ -65,18 +59,16 @@ $regular: 400;
 }
 
 @mixin description {
-  color: $gray_60;
   font-size: 1.6rem;
   font-weight: $regular;
 }
 
 @mixin caption {
-  color: $gray_60;
   font-size: 1.4rem;
   font-weight: $regular;
 }
 
-@mixin textStyle($size: base, $color: base) {
+@mixin textStyle($size: base, $color: $gray_60) {
   @if $size == h1 {
     @include h1;
     color: $color;

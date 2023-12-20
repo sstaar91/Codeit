@@ -10,7 +10,7 @@ const List = () => {
   return (
     <section className={css.container}>
       <nav className={css.nav}>
-        <Logo size="list" />
+        <Logo size="small" />
         <Cta title="답변하러 가기" color="soft" handleButton={() => {}} />
       </nav>
       <h2 className={css.title}>누구에게 질문할까요?</h2>

@@ -5,11 +5,15 @@
   animation: 1s upAndDown infinite ease-in-out;
 }
 
-.main {
+.large {
   width: 25rem;
 }
 
-.list {
+.medium {
+  width: 20rem;
+}
+
+.small {
   width: 15rem;
   height: fit-content;
 }

@@ -28,7 +28,7 @@ const Home = () => {
 
   return (
     <section className={css.container}>
-      <Logo size="main" />
+      <Logo size="large" />
       <div className={css.btnPosition}>
         <Cta
           title="질문하러 가기 💕"
