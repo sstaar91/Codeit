@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import Cta from '../../components/Cta';
 import Icon from '../../components/Icon';
 import Logo from '../../components/Logo';
@@ -5,8 +7,19 @@ import ProfileImg from '../../components/ProfileImg';
 import Qna from './components/Qna';
 
 import css from './Post.module.scss';
+import useGetData from '../../hooks/useGetData';
 
 const Post = () => {
+  const params = useParams();
+  const [data, loading] = useGetData(`/subjects/${params.id}/questions/`);
+
+  if (loading) return <section>잠시 기다려주세요</section>;
+
+  const questionCount = data?.count;
+  const questionList = data?.results;
+
+  console.log(data);
+
   return (
     <section className={css.container}>
       <Logo size="medium" />
@@ -24,7 +37,7 @@ const Post = () => {
       <div className={css.questionWrap}>
         <span className={css.questionNum}>
           <Icon title="comment" />
-          0개의 질문이 있습니다
+          {questionCount}개의 질문이 있습니다
         </span>
         <Qna />
         <Qna />

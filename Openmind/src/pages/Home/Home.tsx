@@ -20,9 +20,13 @@ const Home = () => {
     e.preventDefault();
 
     postAxios('subjects/', { name: userName }).then((res: any) => {
-      if (res.data.id) {
-        navigate('/list');
+      const { id, name } = res.data;
+      if (id) {
+        localStorage.setItem('userId', id);
+        localStorage.setItem('userName', name);
+        navigate(`/post/${id}`);
       }
+      setUserName('');
     });
   };
 
@@ -34,7 +38,7 @@ const Home = () => {
           title="질문하러 가기 💕"
           color="soft"
           handleButton={() => {
-            navigate('/list');
+            navigate('/list?offset=0&sort=name');
           }}
         />
       </div>

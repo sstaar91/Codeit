@@ -2,18 +2,13 @@ import { Link } from 'react-router-dom';
 import ProfileImg from '../ProfileImg';
 import Icon from '../Icon';
 
+import { Subject } from '../../pages/List/subjectsType';
 import css from './Card.module.scss';
 
-interface Props {
-  id: number;
-  name: string;
-  questionCount: string;
-}
-
-const Card = ({ name, questionCount }: Props) => {
+const Card = ({ id, name, imageSource, questionCount }: Subject) => {
   return (
-    <Link className={css.cardBox} to="/post/1">
-      <ProfileImg url="" size="medium" />
+    <Link className={css.cardBox} to={`/post/${id}`}>
+      <ProfileImg url={imageSource} size="medium" />
       <div className={css.nickName}>{name}</div>
       <div className={css.infoBox}>
         <Icon title="comment" />

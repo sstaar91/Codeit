@@ -3,11 +3,15 @@ import css from './PageNation.module.scss';
 
 interface Props {
   total: number;
+  limit: string;
 }
 
-const PageNation = ({ total }: Props) => {
+const PageNation = ({ total, limit }: Props) => {
   const PAGE_LIMIT = 5;
-  const pageArr = makePageArr(total);
+  const pageNum = Math.ceil(total / Number(limit));
+
+  console.log(pageNum);
+  const pageArr = makePageArr(pageNum);
 
   return (
     <div className={css.pageNationBox}>

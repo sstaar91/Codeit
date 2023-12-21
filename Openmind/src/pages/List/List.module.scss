@@ -26,11 +26,42 @@
 .dropdownWrap {
   @include textStyle(caption);
   @include flexSetting(center, center, row);
+  position: relative;
   gap: 0.4rem;
   margin-top: 1.2rem;
   padding: 0.8rem 1.2rem;
   border: 1px solid $gray_50;
   border-radius: 0.8rem;
+}
+
+.open {
+  transform: rotate(180deg);
+  transition: 0.3s ease;
+}
+
+.close {
+  transform: rotate(0deg);
+  transition: 0.3s ease;
+}
+
+.dropdownList {
+  position: absolute;
+  top: 40px;
+  padding: 0.4rem 0;
+  width: 100%;
+  background-color: $gray_10;
+  border: 1px solid $gray_30;
+  border-radius: 0.8rem;
+}
+
+.list {
+  @include textStyle(caption);
+  padding: 0.6rem 1.6rem;
+
+  &:hover {
+    color: #1877f2;
+    cursor: pointer;
+  }
 }
 
 .listBox {
