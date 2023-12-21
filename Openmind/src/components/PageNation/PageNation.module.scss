@@ -14,6 +14,10 @@
   border-radius: 0.8rem;
 
   &:hover {
-    background-color: $pink_10;
+    background-color: $pink_30;
   }
+}
+
+.current {
+  background-color: $pink_50;
 }

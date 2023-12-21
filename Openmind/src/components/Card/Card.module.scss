@@ -9,6 +9,12 @@
   width: 22rem;
   border: 1px solid $gray_40;
   border-radius: 1.6rem;
+  transition: 0.2s ease-in box-shadow;
+
+  &:hover {
+    box-shadow: $shadow_3;
+    transition: 0.2s ease-in box-shadow;
+  }
 }
 
 .nickName {

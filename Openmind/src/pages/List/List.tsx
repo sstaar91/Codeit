@@ -16,7 +16,7 @@ const List = () => {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const limit = searchParams.get('limit') || '8';
-  const offset = searchParams.get('offset');
+  const offset = searchParams.get('offset') || '0';
   const sort = searchParams.get('sort');
 
   const [data] = useGetData(
@@ -25,6 +25,7 @@ const List = () => {
 
   const handleSortBtn = (title: string) => {
     searchParams.set('sort', title);
+    searchParams.set('offset', '0');
     setSearchParams(searchParams);
   };
 
@@ -66,7 +67,7 @@ const List = () => {
           return <Card key={list.id} {...list} />;
         })}
       </div>
-      <PageNation total={totalSubject} limit={limit} />
+      <PageNation total={totalSubject} limit={limit} offset={offset} />
     </section>
   );
 };
