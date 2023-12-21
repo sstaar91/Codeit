@@ -1,30 +1,32 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useGetData from '../../hooks/useGetData';
 
 import Cta from '../../components/Cta';
 import Icon from '../../components/Icon';
 import Logo from '../../components/Logo';
 import ProfileImg from '../../components/ProfileImg';
 import Qna from './components/Qna';
+import Modal from '../../components/Modal';
 
 import css from './Post.module.scss';
-import useGetData from '../../hooks/useGetData';
 
 const Post = () => {
   const params = useParams();
-  const [data, loading] = useGetData(`/subjects/${params.id}/questions/`);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [subject] = useGetData(`/subjects/${params.id}/`);
+  const [data] = useGetData(`/subjects/${params.id}/questions/`);
 
-  if (loading) return <section>잠시 기다려주세요</section>;
+  if (!data.count) return <section>잠시 기다려주세요</section>;
 
   const questionCount = data?.count;
-  const questionList = data?.results;
-
-  console.log(data);
+  const questionList = data.results;
 
   return (
     <section className={css.container}>
       <Logo size="medium" />
-      <ProfileImg url="" size="large" />
-      <span className={css.profileName}>프로필 네임</span>
+      <ProfileImg url={subject.imageSource} size="large" />
+      <span className={css.profileName}>{subject.name}</span>
       <div className={css.shareBox}>
         {SHARE_LIST.map(list => {
           return (
@@ -37,15 +39,33 @@ const Post = () => {
       <div className={css.questionWrap}>
         <span className={css.questionNum}>
           <Icon title="comment" />
-          {questionCount}개의 질문이 있습니다
+          {`${
+            questionCount === 0
+              ? '아직 질문이 없습니다'
+              : `${questionCount}개의 질문이 있습니다`
+          }`}
         </span>
-        <Qna />
-        <Qna />
-        <Qna />
+        {questionList.length === 0 ? (
+          <div className={css.empty}>
+            <Icon title="empty" />
+          </div>
+        ) : (
+          <Qna questionList={questionList} />
+        )}
       </div>
       <div className={css.btnPosition}>
-        <Cta title="질문 작성하기" color="thick" type="floating" />
+        <Cta
+          title="질문 작성하기"
+          color="thick"
+          type="floating"
+          handleButton={() => {
+            setIsOpenModal(prev => !prev);
+          }}
+        />
       </div>
+      {isOpenModal && (
+        <Modal setIsOpenModal={setIsOpenModal} subject={subject} />
+      )}
     </section>
   );
 };

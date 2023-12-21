@@ -42,9 +42,25 @@
   gap: 0.8rem;
 }
 
+.empty {
+  @include flexSetting;
+  padding: 3.2rem;
+  width: 62rem;
+}
+
 .btnPosition {
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
   padding: 2.4rem;
+}
+
+@media screen and (max-width: 768px) {
+  .questionWrap {
+    width: 90%;
+  }
+
+  .empty {
+    width: 100%;
+  }
 }

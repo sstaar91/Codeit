@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import ProfileImg from '../ProfileImg';
 import Icon from '../Icon';
 
-import { Subject } from '../../pages/List/subjectsType';
+import { Subject } from '../../types/subjectsType';
 import css from './Card.module.scss';
 
 const Card = ({ id, name, imageSource, questionCount }: Subject) => {

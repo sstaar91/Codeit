@@ -2,10 +2,11 @@ import iconList from './iconList';
 
 interface Props {
   title: string;
+  width?: number | string;
 }
 
-const Icon = ({ title }: Props) => {
-  return <img src={iconList[title]} alt={`${title} icon`} />;
+const Icon = ({ title, width = 'inherit' }: Props) => {
+  return <img src={iconList[title]} alt={`${title} icon`} width={width} />;
 };
 
 export default Icon;

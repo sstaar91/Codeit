@@ -1,0 +1,63 @@
+@import '/src/styles/mixin.scss';
+@import '/src/styles/typo.scss';
+@import '/src/styles/colors.scss';
+
+.dimmedBackground {
+  @include flexSetting;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.4);
+  z-index: 9999;
+}
+
+.modalLayout {
+  padding: 4rem;
+  border-radius: 2.4rem;
+  background-color: $gray_10;
+  box-shadow: $shadow_3;
+}
+
+.titleBox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 0.8rem;
+}
+
+.title {
+  @include textStyle(h3);
+}
+
+.iconPosition {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.userInfo {
+  @include textStyle(body2);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 4rem;
+}
+
+.textarea {
+  display: block;
+  margin: 1.5rem 0 0.8rem;
+  padding: 1.6rem;
+  width: 53rem;
+  height: 18rem;
+  border: none;
+  border-radius: 0.8rem;
+  background-color: $gray_20;
+  resize: none;
+
+  &:focus {
+    outline: 1px solid $pink_40;
+  }
+}

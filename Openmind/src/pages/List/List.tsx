@@ -8,7 +8,7 @@ import Icon from '../../components/Icon';
 import Card from '../../components/Card';
 import PageNation from '../../components/PageNation';
 
-import { Subject } from './subjectsType';
+import { Subject } from '../../types/subjectsType';
 
 import css from './List.module.scss';
 
