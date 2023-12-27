@@ -73,3 +73,15 @@
 .dislike {
   filter: $red;
 }
+
+@media screen and (max-width: 768px) {
+  .qnaBox {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .btnPosition {
+    position: static;
+  }
+}

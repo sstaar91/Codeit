@@ -19,7 +19,7 @@ const List = () => {
   const offset = searchParams.get('offset') || '0';
   const sort = searchParams.get('sort');
 
-  const [data] = useGetData(
+  const [data, _, loading] = useGetData(
     `/subjects/?limit=${limit}&offset=${offset}&sort=${sort}`,
   );
 
@@ -29,7 +29,7 @@ const List = () => {
     setSearchParams(searchParams);
   };
 
-  if (!data.results) return <section>잠시 기다려주세요</section>;
+  if (loading) return <section>잠시 기다려주세요</section>;
 
   const totalSubject = data.count;
   const subjectList = data.results || [];

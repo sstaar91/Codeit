@@ -56,11 +56,22 @@
 }
 
 @media screen and (max-width: 768px) {
-  .questionWrap {
-    width: 90%;
+  .container {
+    padding: 5rem 3.2rem 0;
   }
 
-  .empty {
+  .questionWrap {
+    max-width: 62rem;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .container {
+    padding: 5rem 2.4rem 0;
+  }
+
+  .questionWrap {
+    min-width: 32rem;
   }
 }

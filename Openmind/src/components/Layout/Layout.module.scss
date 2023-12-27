@@ -2,3 +2,15 @@
   margin: 0 auto;
   max-width: 120rem;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 76.8rem;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .container {
+    max-width: 37.5rem;
+  }
+}

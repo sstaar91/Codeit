@@ -61,3 +61,13 @@
     outline: 1px solid $pink_40;
   }
 }
+
+@media screen and (max-width: 440px) {
+  .modalLayout {
+    padding: 2.4rem;
+  }
+
+  .textarea {
+    max-width: 28rem;
+  }
+}

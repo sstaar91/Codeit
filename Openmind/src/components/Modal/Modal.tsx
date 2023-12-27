@@ -9,10 +9,11 @@ import css from './Modal.module.scss';
 
 interface Props {
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  refetch: React.Dispatch<React.SetStateAction<boolean>>;
   subject: Subject;
 }
 
-const Modal = ({ setIsOpenModal, subject }: Props) => {
+const Modal = ({ setIsOpenModal, refetch, subject }: Props) => {
   const [content, setContent] = useState('');
   const { id, name, imageSource } = subject;
 
@@ -24,6 +25,7 @@ const Modal = ({ setIsOpenModal, subject }: Props) => {
     postAxios(`/subjects/${id}/questions/`, { content }).then(res => {
       if (res.data) {
         setIsOpenModal(prev => !prev);
+        refetch(prev => !prev);
       }
     });
   };

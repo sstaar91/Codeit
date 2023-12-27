@@ -9,18 +9,21 @@ import ProfileImg from '../../components/ProfileImg';
 import Qna from './components/Qna';
 import Modal from '../../components/Modal';
 
+import { Question } from '../../types/qnaType';
 import css from './Post.module.scss';
 
 const Post = () => {
   const params = useParams();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [subject] = useGetData(`/subjects/${params.id}/`);
-  const [data] = useGetData(`/subjects/${params.id}/questions/`);
+  const [data, refetch, loading] = useGetData(
+    `/subjects/${params.id}/questions/`,
+  );
 
-  if (!data.count) return <section>잠시 기다려주세요</section>;
+  if (loading) return <section>잠시 기다려주세요</section>;
 
   const questionCount = data?.count;
-  const questionList = data.results;
+  const questionList: Question[] = data?.results;
 
   return (
     <section className={css.container}>
@@ -50,7 +53,9 @@ const Post = () => {
             <Icon title="empty" />
           </div>
         ) : (
-          <Qna questionList={questionList} />
+          questionList.map((question: Question) => {
+            return <Qna key={question.id} {...question} />;
+          })
         )}
       </div>
       <div className={css.btnPosition}>
@@ -64,7 +69,11 @@ const Post = () => {
         />
       </div>
       {isOpenModal && (
-        <Modal setIsOpenModal={setIsOpenModal} subject={subject} />
+        <Modal
+          setIsOpenModal={setIsOpenModal}
+          refetch={refetch}
+          subject={subject}
+        />
       )}
     </section>
   );

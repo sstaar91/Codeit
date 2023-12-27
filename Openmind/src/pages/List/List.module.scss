@@ -10,10 +10,9 @@
 }
 
 .nav {
-  @include flexSetting(center, between, row);
+  @include flexSetting(between, center, row);
   width: 100%;
-  justify-content: space-between;
-  padding: 4rem 0;
+  padding: 4rem;
 }
 
 .title {
@@ -48,7 +47,6 @@
   position: absolute;
   top: 40px;
   padding: 0.4rem 0;
-  width: 100%;
   background-color: $gray_10;
   border: 1px solid $gray_30;
   border-radius: 0.8rem;
@@ -69,4 +67,20 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   margin-top: 3rem;
+  max-width: 120rem;
+}
+
+@media screen and (max-width: 840px) {
+  .listBox {
+    padding: 0 1rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .listBox {
+    padding: 0 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+  }
 }
