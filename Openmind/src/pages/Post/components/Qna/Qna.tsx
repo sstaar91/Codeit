@@ -13,6 +13,7 @@ import css from './Qna.module.scss';
 
 interface Props {
   refetch: React.Dispatch<React.SetStateAction<boolean>>;
+  subjectImage: string;
   subjectName: string;
   qnaMenuId: number;
   setQnaMenuId: React.Dispatch<React.SetStateAction<number>>;
@@ -25,6 +26,7 @@ const Qna = ({
   content,
   dislike,
   subjectId,
+  subjectImage,
   subjectName,
   refetch,
   qnaMenuId,
@@ -49,7 +51,7 @@ const Qna = ({
       content: answerContent,
       isRejected: false,
     }).then(res => {
-      if (res.status === 200) {
+      if (res.status === 201) {
         refetch(prev => !prev);
       }
     });
@@ -120,7 +122,7 @@ const Qna = ({
         <p className={css.title}>{content}</p>
       </div>
       <div className={css.answerBox}>
-        <ProfileImg url="" size="small" />
+        <ProfileImg url={subjectImage} size="small" />
         <div className={css.contentBox}>
           <span className={css.title}>{subjectName}</span>
           <span className={css.date}>2주전</span>
@@ -133,10 +135,8 @@ const Qna = ({
               value={answerContent}
             />
           )}
-          {!isLoggined && (
-            <p className={css.answer}>
-              {answer ? answer.content : '답변을 작성하는 중입니다'}
-            </p>
+          {!isLoggined && !answer && (
+            <p className={css.answer}>답변을 작성하는 중입니다</p>
           )}
         </div>
       </div>

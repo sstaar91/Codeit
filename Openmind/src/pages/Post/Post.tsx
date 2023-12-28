@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useGetData from '../../hooks/useGetData';
 
 import Cta from '../../components/Cta';
@@ -11,16 +11,28 @@ import Modal from '../../components/Modal';
 
 import { Question } from '../../types/qnaType';
 import css from './Post.module.scss';
+import { deleteAxios } from '../../utils/axiosInstance';
 
 const Post = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const isLoggined = localStorage.getItem('userId') === params.id;
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [qnaMenuId, setQnaMenuId] = useState(0);
+
   const [subject] = useGetData(`/subjects/${params.id}/`);
   const [data, refetch, loading] = useGetData(
     `/subjects/${params.id}/questions/`,
   );
+
+  const deleteUser = () => {
+    deleteAxios(`/subjects/${params.id}/`).then(res => {
+      if (res.status === 204) {
+        localStorage.removeItem('userId');
+        navigate('/');
+      }
+    });
+  };
 
   if (loading) return <section>잠시 기다려주세요</section>;
 
@@ -29,7 +41,7 @@ const Post = () => {
 
   return (
     <section className={css.container}>
-      <Logo size="medium" path="/list" />
+      <Logo size="medium" path="/list?offset=0&sort=name" />
       <ProfileImg url={subject.imageSource} size="large" />
       <span className={css.profileName}>{subject.name}</span>
       <div className={css.shareBox}>
@@ -40,6 +52,14 @@ const Post = () => {
             </button>
           );
         })}
+        {isLoggined && (
+          <Cta
+            title="탈퇴하기"
+            color="thick"
+            type="floating"
+            handleButton={deleteUser}
+          />
+        )}
       </div>
       <div className={css.questionWrap}>
         <span className={css.questionNum}>
@@ -59,11 +79,12 @@ const Post = () => {
             return (
               <Qna
                 key={question.id}
-                {...question}
                 refetch={refetch}
+                subjectImage={subject.imageSource}
                 subjectName={subject.name}
                 qnaMenuId={qnaMenuId}
                 setQnaMenuId={setQnaMenuId}
+                {...question}
               />
             );
           })

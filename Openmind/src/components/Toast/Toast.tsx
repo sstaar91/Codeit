@@ -14,13 +14,17 @@ const ToastPortal = ({ children }: Props) => {
   return ReactDOM.createPortal(children, toastRoot);
 };
 
-const Toast = () => {
+interface Toast {
+  text: string;
+}
+
+const Toast = ({ text }: Toast) => {
   useEffect(() => {}, []);
 
   return (
     <ToastPortal>
       <div className={css.container}>
-        <div className={css.toastBox}>123</div>
+        <div className={css.toastBox}>{text}</div>
       </div>
     </ToastPortal>
   );

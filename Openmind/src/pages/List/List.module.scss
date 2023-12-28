@@ -70,6 +70,15 @@
   max-width: 120rem;
 }
 
+.empty {
+  @include flexSetting;
+  @include textStyle(h2);
+  gap: 4rem;
+  width: 100%;
+  height: 50vh;
+  font-family: 'Gamja Flower', sans-serif;
+}
+
 @media screen and (max-width: 840px) {
   .listBox {
     padding: 0 1rem;

@@ -74,12 +74,26 @@ const List = () => {
           </ul>
         )}
       </div>
+      {subjectList.length === 0 && (
+        <div className={css.empty}>
+          <span>처음으로 질문을 받아볼까요?</span>
+          <Cta
+            title="처음으로"
+            color="thick"
+            handleButton={() => {
+              navigate('/');
+            }}
+          />
+        </div>
+      )}
       <div className={css.listBox}>
         {subjectList.map((list: Subject) => {
           return <Card key={list.id} {...list} />;
         })}
       </div>
-      <PageNation total={totalSubject} limit={limit} offset={offset} />
+      {subjectList.length !== 0 && (
+        <PageNation total={totalSubject} limit={limit} offset={offset} />
+      )}
     </section>
   );
 };
