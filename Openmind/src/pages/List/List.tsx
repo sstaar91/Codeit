@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import useGetData from '../../hooks/useGetData';
+import useToast from '../../hooks/useToast';
 
 import Cta from '../../components/Cta';
 import Logo from '../../components/Logo';
@@ -9,13 +10,14 @@ import Card from '../../components/Card';
 import PageNation from '../../components/PageNation';
 
 import { Subject } from '../../types/subjectsType';
-
 import css from './List.module.scss';
 
 const List = () => {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const setToast = useToast();
+
   const limit = searchParams.get('limit') || '8';
   const offset = searchParams.get('offset') || '0';
   const sort = searchParams.get('sort');
@@ -36,7 +38,7 @@ const List = () => {
     if (userId) {
       navigate(`/post/${userId}`);
     } else {
-      alert('로그인을 해주세요!');
+      setToast('로그인을 해주세요');
       navigate('/');
     }
   };

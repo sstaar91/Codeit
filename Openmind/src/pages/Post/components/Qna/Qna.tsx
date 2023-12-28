@@ -4,6 +4,8 @@ import {
   postAxios,
   putAxios,
 } from '../../../../utils/axiosInstance';
+import useToast from '../../../../hooks/useToast';
+
 import ProfileImg from '../../../../components/ProfileImg';
 import Icon from '../../../../components/Icon';
 import Textarea from '../../../../components/Textarea';
@@ -33,8 +35,9 @@ const Qna = ({
   setQnaMenuId,
 }: Question & Props) => {
   const [answerContent, setAnswerContent] = useState(answer?.content || '');
-  const [reaction, setReaction] = useState('');
   const [contentType, setContentType] = useState('');
+  const [reaction, setReaction] = useState('');
+  const setToast = useToast();
 
   const isLoggined = localStorage.getItem('userId') === String(subjectId);
   const contentCondition =
@@ -52,6 +55,7 @@ const Qna = ({
       isRejected: false,
     }).then(res => {
       if (res.status === 201) {
+        setToast('답변을 작성했습니다!');
         refetch(prev => !prev);
       }
     });
@@ -64,6 +68,7 @@ const Qna = ({
     }).then(res => {
       if (res.status === 200) {
         setContentType('');
+        setToast('답변을 수정했습니다!');
         refetch(prev => !prev);
       }
     });
@@ -81,6 +86,7 @@ const Qna = ({
   const deleteAnswer = () => {
     deleteAxios(`/questions/${id}/`).then(res => {
       if (res.status === 204) {
+        setToast('질문을 삭제 했습니다!');
         refetch(prev => !prev);
       }
     });

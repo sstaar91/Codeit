@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { deleteAxios } from '../../utils/axiosInstance';
+import { toastList } from '../../atoms/toast';
 import useGetData from '../../hooks/useGetData';
+import useToast from '../../hooks/useToast';
 
 import Cta from '../../components/Cta';
 import Icon from '../../components/Icon';
@@ -11,11 +15,11 @@ import Modal from '../../components/Modal';
 
 import { Question } from '../../types/qnaType';
 import css from './Post.module.scss';
-import { deleteAxios } from '../../utils/axiosInstance';
 
 const Post = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const setToast = useToast();
   const isLoggined = localStorage.getItem('userId') === params.id;
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [qnaMenuId, setQnaMenuId] = useState(0);
@@ -29,6 +33,7 @@ const Post = () => {
     deleteAxios(`/subjects/${params.id}/`).then(res => {
       if (res.status === 204) {
         localStorage.removeItem('userId');
+        setToast(`성공적으로 탈퇴했습니다!`);
         navigate('/');
       }
     });

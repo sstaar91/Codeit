@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { useRecoilState } from 'recoil';
 
+import { toastList } from '../../atoms/toast';
 import css from './Toast.module.scss';
 
 interface Props {
@@ -14,18 +16,33 @@ const ToastPortal = ({ children }: Props) => {
   return ReactDOM.createPortal(children, toastRoot);
 };
 
-interface Toast {
-  text: string;
-}
+const Toast = () => {
+  const [toastComments, setToastComments] = useRecoilState(toastList);
 
-const Toast = ({ text }: Toast) => {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const time = setTimeout(() => {
+      if (toastComments.length === 0) return;
+      const newArr = [...toastComments];
+      newArr.shift();
+      setToastComments(newArr);
+    }, 3000);
+
+    return () => {
+      clearTimeout(time);
+    };
+  }, [toastComments]);
+
+  console.log(toastComments);
 
   return (
     <ToastPortal>
-      <div className={css.container}>
-        <div className={css.toastBox}>{text}</div>
-      </div>
+      {toastComments.map(list => {
+        return (
+          <div className={css.container} key={list.id}>
+            <div className={css.toastBox}>{list.text}</div>
+          </div>
+        );
+      })}
     </ToastPortal>
   );
 };

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { postAxios } from '../../utils/axiosInstance';
+import useToast from '../../hooks/useToast';
+
 import Icon from '../Icon';
 import ProfileImg from '../ProfileImg';
 import Textarea from '../Textarea';
@@ -15,6 +17,7 @@ interface Props {
 
 const Modal = ({ setIsOpenModal, refetch, subject }: Props) => {
   const [content, setContent] = useState('');
+  const setToast = useToast();
   const { id, name, imageSource } = subject;
 
   const handleModal = () => {
@@ -24,6 +27,7 @@ const Modal = ({ setIsOpenModal, refetch, subject }: Props) => {
   const createQuestion = () => {
     postAxios(`/subjects/${id}/questions/`, { content }).then(res => {
       if (res.data) {
+        setToast('질문을 작성했습니다!');
         setIsOpenModal(prev => !prev);
         refetch(prev => !prev);
       }
