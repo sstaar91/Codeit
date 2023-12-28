@@ -46,28 +46,16 @@
   margin-top: 4rem;
 }
 
-.textarea {
-  display: block;
-  margin: 1.5rem 0 0.8rem;
-  padding: 1.6rem;
+.areaWrap {
   width: 53rem;
-  height: 18rem;
-  border: none;
-  border-radius: 0.8rem;
-  background-color: $gray_20;
-  resize: none;
-
-  &:focus {
-    outline: 1px solid $pink_40;
-  }
 }
 
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 700px) {
   .modalLayout {
     padding: 2.4rem;
   }
 
-  .textarea {
+  .areaWrap {
     max-width: 28rem;
   }
 }

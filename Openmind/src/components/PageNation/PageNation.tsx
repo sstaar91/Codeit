@@ -23,7 +23,10 @@ const PageNation = ({ total, limit, offset }: Props) => {
 
   return (
     <div className={css.pageNationBox}>
-      <button className={css.pageBtn}>{`<`}</button>
+      <button
+        className={css.pageBtn}
+        onClick={() => handlePageBtn(0)}
+      >{`<`}</button>
       {pageArr.map(num => {
         return (
           <button
@@ -37,7 +40,10 @@ const PageNation = ({ total, limit, offset }: Props) => {
           </button>
         );
       })}
-      <button className={css.pageBtn}>{`>`}</button>
+      <button
+        className={css.pageBtn}
+        onClick={() => handlePageBtn(Number(pageArr.length) - 1)}
+      >{`>`}</button>
     </div>
   );
 };

@@ -1,8 +1,8 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { postAxios } from '../../utils/axiosInstance';
 import Icon from '../Icon';
 import ProfileImg from '../ProfileImg';
-import Cta from '../Cta';
+import Textarea from '../Textarea';
 
 import { Subject } from '../../types/subjectsType';
 import css from './Modal.module.scss';
@@ -58,20 +58,14 @@ const Modal = ({ setIsOpenModal, refetch, subject }: Props) => {
           <ProfileImg url={imageSource} size="extraSmall" />
           <span>{name}</span>
         </div>
-        <textarea
-          className={css.textarea}
-          placeholder="질문을 입력해주세요"
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-            setContent(e.target.value);
-          }}
-        />
-        <Cta
-          title="질문 보내기"
-          color="thick"
-          type="modal"
-          border="none"
-          handleButton={createQuestion}
-        />
+        <div className={css.areaWrap}>
+          <Textarea
+            type="questions"
+            setContent={setContent}
+            handleQuestion={createQuestion}
+            value={content}
+          />
+        </div>
       </div>
     </div>
   );

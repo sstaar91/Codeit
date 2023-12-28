@@ -8,6 +8,7 @@ import thumbsUp from '../../assets/icons/thumbs-up.svg';
 import thumbsDown from '../../assets/icons/thumbs-down.svg';
 import empty from '../../assets/icons/empty.svg';
 import close from '../../assets/icons/close.svg';
+import kebab from '../../assets/icons/kebab.svg';
 
 const iconList: { [key: string]: string } = {
   person,
@@ -20,6 +21,7 @@ const iconList: { [key: string]: string } = {
   thumbsDown,
   empty,
   close,
+  kebab,
 };
 
 export default iconList;

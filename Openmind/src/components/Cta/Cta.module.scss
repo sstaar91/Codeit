@@ -33,12 +33,21 @@
   border-radius: 20rem;
 }
 
-.modal {
+.content {
   width: 100%;
 }
 
 .none {
   border: none;
+}
+
+.active {
+  background-color: $gray_30;
+  cursor: not-allowed;
+
+  &:hover {
+    background-color: $gray_30;
+  }
 }
 
 @media screen and (max-width: 375px) {

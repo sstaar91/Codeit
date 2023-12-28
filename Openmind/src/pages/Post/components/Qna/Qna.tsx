@@ -1,9 +1,22 @@
 import { useState } from 'react';
+import {
+  deleteAxios,
+  postAxios,
+  putAxios,
+} from '../../../../utils/axiosInstance';
 import ProfileImg from '../../../../components/ProfileImg';
 import Icon from '../../../../components/Icon';
+import Textarea from '../../../../components/Textarea';
 
 import { Question } from '../../../../types/qnaType';
 import css from './Qna.module.scss';
+
+interface Props {
+  refetch: React.Dispatch<React.SetStateAction<boolean>>;
+  subjectName: string;
+  qnaMenuId: number;
+  setQnaMenuId: React.Dispatch<React.SetStateAction<number>>;
+}
 
 const Qna = ({
   id,
@@ -12,41 +25,121 @@ const Qna = ({
   content,
   dislike,
   subjectId,
-  createdAt,
-}: Question) => {
+  subjectName,
+  refetch,
+  qnaMenuId,
+  setQnaMenuId,
+}: Question & Props) => {
+  const [answerContent, setAnswerContent] = useState(answer?.content || '');
   const [reaction, setReaction] = useState('');
+  const [contentType, setContentType] = useState('');
+
+  const isLoggined = localStorage.getItem('userId') === String(subjectId);
+  const contentCondition =
+    (isLoggined && answer && contentType === '') || (!isLoggined && answer);
+  const areaCondition =
+    (isLoggined && answer && contentType !== '') || (isLoggined && !answer);
+
+  const handleDropDown = (id: number) => {
+    qnaMenuId === id ? setQnaMenuId(0) : setQnaMenuId(id);
+  };
+
+  const createAnswer = () => {
+    postAxios(`/questions/${id}/answers/`, {
+      content: answerContent,
+      isRejected: false,
+    }).then(res => {
+      if (res.status === 200) {
+        refetch(prev => !prev);
+      }
+    });
+  };
+
+  const updateAnswer = () => {
+    putAxios(`/answers/${answer?.id}/`, {
+      content: answerContent,
+      isRejected: false,
+    }).then(res => {
+      if (res.status === 200) {
+        setContentType('');
+        refetch(prev => !prev);
+      }
+    });
+  };
+
+  const updateReaction = (type: string) => {
+    postAxios(`/questions/${id}/reaction/`, { type }).then(res => {
+      if (res.status === 200) {
+        setReaction(type);
+        refetch(prev => !prev);
+      }
+    });
+  };
+
+  const deleteAnswer = () => {
+    deleteAxios(`/questions/${id}/`).then(res => {
+      if (res.status === 204) {
+        refetch(prev => !prev);
+      }
+    });
+  };
 
   return (
     <article className={css.qnaBox} key={id}>
-      <label className={`${css.status} ${answer ? css.complete : css.notYet}`}>
-        {answer ? '답변 완료' : '미답변'}
-      </label>
+      <div className={css.statusBox}>
+        <label
+          className={`${css.status} ${answer ? css.complete : css.notYet}`}
+        >
+          {answer ? '답변 완료' : '미답변'}
+        </label>
+        {isLoggined && (
+          <div className={css.menuBox} onClick={() => handleDropDown(id)}>
+            <Icon title="kebab" />
+            {qnaMenuId === id && (
+              <ul
+                className={`${css.menuListBox} ${
+                  qnaMenuId === id ? css.open : ''
+                }`}
+              >
+                <li
+                  className={css.list}
+                  onClick={() => setContentType('modify')}
+                >
+                  수정하기
+                </li>
+                <li className={css.list} onClick={deleteAnswer}>
+                  삭제하기
+                </li>
+              </ul>
+            )}
+          </div>
+        )}
+      </div>
       <div>
         <span className={css.date}>질문 - 2주전</span>
         <p className={css.title}>{content}</p>
       </div>
-      {answer && (
-        <div className={css.answerBox}>
-          <ProfileImg url="" size="small" />
-          <div>
-            <span className={css.title}>아초는 고양이</span>
-            <span className={css.date}>2주전</span>
+      <div className={css.answerBox}>
+        <ProfileImg url="" size="small" />
+        <div className={css.contentBox}>
+          <span className={css.title}>{subjectName}</span>
+          <span className={css.date}>2주전</span>
+          {contentCondition && <p className={css.answer}>{answer.content}</p>}
+          {areaCondition && (
+            <Textarea
+              type="answer"
+              setContent={setAnswerContent}
+              handleQuestion={contentType === '' ? createAnswer : updateAnswer}
+              value={answerContent}
+            />
+          )}
+          {!isLoggined && (
             <p className={css.answer}>
-              그들을 불러 귀는 이상의 오직 피고, 가슴이 이상, 못할 봄바람이다.
-              찾아다녀도, 전인 방황하였으며, 대한 바이며, 이것이야말로 가치를
-              청춘의 따뜻한 그리하였는가? 몸이 열락의 청춘의 때문이다. 천고에
-              피어나는 간에 밝은 이상, 인생의 만물은 피다. 대중을 이성은
-              방황하여도, 그리하였는가? 크고 평화스러운 품에 방황하였으며,
-              말이다. 이상은 들어 예수는 크고 긴지라 역사를 피다. 얼음에
-              있음으로써 꽃 보배를 곧 가는 교향악이다. 우는 새 예가 우리의 것은
-              피다. 피가 그것을 어디 앞이 기쁘며, 이상의 열락의 위하여서 끝까지
-              것이다. 있는 봄바람을 방황하여도, 우리의 것은 작고 아니한 영원히
-              듣기만 운다.
+              {answer ? answer.content : '답변을 작성하는 중입니다'}
             </p>
-          </div>
+          )}
         </div>
-      )}
-
+      </div>
       <label className={css.line} />
       <div className={css.reactionBox}>
         <button
@@ -54,7 +147,7 @@ const Qna = ({
             reaction === 'like' && css[reaction]
           }`}
           onClick={() => {
-            setReaction('like');
+            updateReaction('like');
           }}
         >
           <Icon title="thumbsUp" />
@@ -65,7 +158,7 @@ const Qna = ({
             reaction === 'dislike' && css[reaction]
           }`}
           onClick={() => {
-            setReaction('dislike');
+            updateReaction('dislike');
           }}
         >
           <Icon title="thumbsDown" />
@@ -73,8 +166,6 @@ const Qna = ({
         </button>
       </div>
     </article>
-    //   })}
-    // </>
   );
 };
 

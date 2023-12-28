@@ -1,5 +1,6 @@
 @import '/src/styles/typo.scss';
 @import '/src/styles/colors.scss';
+@import '/src/styles/animation.scss';
 
 .qnaBox {
   display: flex;
@@ -12,10 +13,16 @@
   box-shadow: $shadow_2;
 }
 
+.statusBox {
+  display: flex;
+  justify-content: space-between;
+}
+
 .status {
   padding: 0.4rem 1.2rem;
   border-radius: 0.8rem;
   width: fit-content;
+  line-height: 1.6;
 }
 
 .complete {
@@ -26,6 +33,35 @@
 .notYet {
   color: $gray_40;
   border: 1px solid $gray_40;
+}
+
+.menuBox {
+  position: relative;
+}
+
+.menuListBox {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  padding: 0.4rem 0;
+  border: 1px solid $gray_30;
+  border-radius: 0.8rem;
+  transform: translateY(20%);
+}
+
+.open {
+  animation: fadeInDown 0.5s ease;
+}
+
+.list {
+  @include textStyle(caption);
+  padding: 0.6rem 1.6rem;
+  width: max-content;
+  cursor: default;
+
+  &:hover {
+    background-color: $gray_20;
+  }
 }
 
 .date {
@@ -41,6 +77,10 @@
 .answerBox {
   display: flex;
   gap: 1.2rem;
+}
+
+.contentBox {
+  flex: 8;
 }
 
 .answer {
@@ -74,14 +114,12 @@
   filter: $red;
 }
 
+.areaWrap {
+  flex: 8;
+}
+
 @media screen and (max-width: 768px) {
   .qnaBox {
     width: 100%;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .btnPosition {
-    position: static;
   }
 }

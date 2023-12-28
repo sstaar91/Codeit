@@ -4,9 +4,10 @@ import css from './Logo.module.scss';
 
 interface Props {
   size: string;
+  path?: string;
 }
 
-const Logo = ({ size }: Props) => {
+const Logo = ({ size, path = '/' }: Props) => {
   const navigate = useNavigate();
 
   return (
@@ -15,7 +16,7 @@ const Logo = ({ size }: Props) => {
       src={logo}
       alt="logo"
       onClick={() => {
-        navigate('/');
+        navigate(`${path}`);
       }}
     />
   );

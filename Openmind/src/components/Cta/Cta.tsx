@@ -5,13 +5,24 @@ interface Props {
   color: string;
   type?: string;
   border?: string;
+  isActive?: boolean;
   handleButton?: () => void;
 }
 
-const Cta = ({ title, color, type = '', border = '', handleButton }: Props) => {
+const Cta = ({
+  title,
+  color,
+  type = '',
+  border = '',
+  isActive = false,
+  handleButton,
+}: Props) => {
   return (
     <button
-      className={`${css.button} ${css[color]} ${css[type]} ${css[border]}`}
+      className={`${css.button} ${css[color]} ${css[type]} ${css[border]} ${
+        isActive ? css.active : ''
+      }`}
+      disabled={isActive}
       onClick={handleButton}
     >
       {title}

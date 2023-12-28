@@ -14,7 +14,9 @@ import css from './Post.module.scss';
 
 const Post = () => {
   const params = useParams();
+  const isLoggined = localStorage.getItem('userId') === params.id;
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [qnaMenuId, setQnaMenuId] = useState(0);
   const [subject] = useGetData(`/subjects/${params.id}/`);
   const [data, refetch, loading] = useGetData(
     `/subjects/${params.id}/questions/`,
@@ -27,7 +29,7 @@ const Post = () => {
 
   return (
     <section className={css.container}>
-      <Logo size="medium" />
+      <Logo size="medium" path="/list" />
       <ProfileImg url={subject.imageSource} size="large" />
       <span className={css.profileName}>{subject.name}</span>
       <div className={css.shareBox}>
@@ -54,20 +56,31 @@ const Post = () => {
           </div>
         ) : (
           questionList.map((question: Question) => {
-            return <Qna key={question.id} {...question} />;
+            return (
+              <Qna
+                key={question.id}
+                {...question}
+                refetch={refetch}
+                subjectName={subject.name}
+                qnaMenuId={qnaMenuId}
+                setQnaMenuId={setQnaMenuId}
+              />
+            );
           })
         )}
       </div>
-      <div className={css.btnPosition}>
-        <Cta
-          title="질문 작성하기"
-          color="thick"
-          type="floating"
-          handleButton={() => {
-            setIsOpenModal(prev => !prev);
-          }}
-        />
-      </div>
+      {!isLoggined && (
+        <div className={css.btnPosition}>
+          <Cta
+            title="질문 작성하기"
+            color="thick"
+            type="floating"
+            handleButton={() => {
+              setIsOpenModal(prev => !prev);
+            }}
+          />
+        </div>
+      )}
       {isOpenModal && (
         <Modal
           setIsOpenModal={setIsOpenModal}

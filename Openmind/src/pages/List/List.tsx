@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import useGetData from '../../hooks/useGetData';
 
 import Cta from '../../components/Cta';
@@ -15,6 +15,7 @@ import css from './List.module.scss';
 const List = () => {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const limit = searchParams.get('limit') || '8';
   const offset = searchParams.get('offset') || '0';
   const sort = searchParams.get('sort');
@@ -29,6 +30,17 @@ const List = () => {
     setSearchParams(searchParams);
   };
 
+  const moveAnswerPage = () => {
+    const userId = localStorage.getItem('userId');
+
+    if (userId) {
+      navigate(`/post/${userId}`);
+    } else {
+      alert('로그인을 해주세요!');
+      navigate('/');
+    }
+  };
+
   if (loading) return <section>잠시 기다려주세요</section>;
 
   const totalSubject = data.count;
@@ -38,7 +50,7 @@ const List = () => {
     <section className={css.container}>
       <nav className={css.nav}>
         <Logo size="small" />
-        <Cta title="답변하러 가기" color="soft" handleButton={() => {}} />
+        <Cta title="답변하러 가기" color="soft" handleButton={moveAnswerPage} />
       </nav>
       <h2 className={css.title}>누구에게 질문할까요?</h2>
       <div
