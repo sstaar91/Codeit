@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { makePageArr } from '../../utils/pagenation';
 import css from './PageNation.module.scss';
+import useToast from '../../hooks/useToast';
 
 interface Props {
   total: number;
@@ -10,22 +11,25 @@ interface Props {
 
 const PageNation = ({ total, limit, offset }: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const setToast = useToast();
 
   const handlePageBtn = (number: number) => {
-    searchParams.set('offset', '' + number * Number(limit));
+    if (number === 0) return setToast('가장 첫번째 페이지입니다');
+    if (number === totalPageNum + 1)
+      return setToast('가장 마지막 페이지입니다');
+    searchParams.set('offset', '' + (number - 1) * Number(limit));
     setSearchParams(searchParams);
   };
 
-  const PAGE_LIMIT = 5;
-  const pageNum = Math.ceil(total / Number(limit));
-  const pageArr = makePageArr(pageNum);
+  const totalPageNum = Math.ceil(total / Number(limit));
   const currentPage = +offset / +limit + 1;
+  const pageArr = makePageArr(totalPageNum, currentPage);
 
   return (
     <div className={css.pageNationBox}>
       <button
         className={css.pageBtn}
-        onClick={() => handlePageBtn(0)}
+        onClick={() => handlePageBtn(currentPage - 1)}
       >{`<`}</button>
       {pageArr.map(num => {
         return (
@@ -34,7 +38,7 @@ const PageNation = ({ total, limit, offset }: Props) => {
             className={`${css.pageBtn} ${
               currentPage === num ? css.current : ''
             }`}
-            onClick={() => handlePageBtn(num - 1)}
+            onClick={() => handlePageBtn(num)}
           >
             {num}
           </button>
@@ -42,7 +46,7 @@ const PageNation = ({ total, limit, offset }: Props) => {
       })}
       <button
         className={css.pageBtn}
-        onClick={() => handlePageBtn(Number(pageArr.length) - 1)}
+        onClick={() => handlePageBtn(currentPage + 1)}
       >{`>`}</button>
     </div>
   );

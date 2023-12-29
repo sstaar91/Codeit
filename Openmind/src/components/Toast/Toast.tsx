@@ -32,8 +32,6 @@ const Toast = () => {
     };
   }, [toastComments]);
 
-  console.log(toastComments);
-
   return (
     <ToastPortal>
       {toastComments.map(list => {

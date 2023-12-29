@@ -38,7 +38,7 @@ const List = () => {
     if (userId) {
       navigate(`/post/${userId}`);
     } else {
-      setToast('로그인을 해주세요');
+      setToast('내 페이지를 생성 해주세요');
       navigate('/');
     }
   };
