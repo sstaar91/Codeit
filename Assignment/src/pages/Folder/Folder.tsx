@@ -5,35 +5,68 @@ import Cta from '../../components/Cta';
 import Card from '../../components/Card';
 import Modal from '../../components/Modal/Modal';
 
-import link from '/icons/i_link.svg';
-import search from '/icons/i_search.svg';
-import share from '/icons/i_share.svg';
-import deleteIcon from '/icons/i_delete.svg';
-import modify from '/icons/i_modify.svg';
-import add from '/icons/i_add.svg';
+import link from '@_assets/icons/i_link.svg';
+import search from '@_assets/icons/i_search.svg';
+import share from '@_assets/icons/i_share.svg';
+import deleteIcon from '@_assets/icons/i_delete.svg';
+import modify from '@_assets/icons/i_modify.svg';
+import add from '@_assets/icons/i_add.svg';
 
 import css from './Folder.module.scss';
 
+interface Folder {
+  id: number;
+  created_at: string;
+  name: string;
+  user_id: number;
+  favorite: boolean;
+  link: {
+    count: number;
+  };
+}
+
+interface ImageMap {
+  [key: string]: string;
+}
+
+interface Links {
+  id: number;
+  createdAt: string;
+  url: string;
+  title: string;
+  description: string;
+  imageSource: string;
+}
+
 const Folder = () => {
-  const [filterList, setFilterList] = useState([]);
-  const [links, setLinks] = useState([]);
+  const [filterList, setFilterList] = useState<Folder[]>([]);
+  const [links, setLinks] = useState<Links[]>([]);
+  const [searchText, setSearchText] = useState('');
   const [currentId, setCurrentId] = useState(0);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [currentModalType, setCurrentModalType] = useState('');
   const [inputLink, setInputLink] = useState('');
 
-  const getUserLinks = async id => {
+  const getUserLinks = async (id: number) => {
     const query = id !== 0 ? `?folderId=${id}` : '';
     const res = await axiosInstance.get(`/users/1/links${query}`);
     setLinks(res.data.data);
   };
+
+  const searchResult = [...links].filter(
+    el =>
+      el.url?.includes(searchText) ||
+      el.title?.includes(searchText) ||
+      el.description?.includes(searchText),
+  );
+  const resultLinks = searchText === '' ? links : searchResult;
 
   const getFilterList = async () => {
     const res = await axiosInstance.get('/users/1/folders');
     setFilterList(res.data.data);
   };
 
-  const handleFilterBtn = id => {
+  const handleFilterBtn = (id: number) => {
     setCurrentId(id);
   };
 
@@ -42,7 +75,7 @@ const Folder = () => {
       ? '전체'
       : filterList.filter(el => el.id === currentId)[0].name;
 
-  const handleIconBtn = type => {
+  const handleIconBtn = (type: string) => {
     setIsOpenModal(prev => !prev);
     setCurrentModalType(type);
   };
@@ -51,7 +84,7 @@ const Folder = () => {
     handleIconBtn('addLink');
   };
 
-  const imgMapping = {
+  const imgMapping: ImageMap = {
     share,
     modify,
     deleteIcon,
@@ -97,6 +130,8 @@ const Folder = () => {
             className={css.searchInput}
             type="text"
             placeholder="링크를 검색해 보세요."
+            value={searchText}
+            onChange={e => setSearchText(e.target.value)}
           />
         </form>
         <div className={css.filterWrap}>
@@ -149,11 +184,11 @@ const Folder = () => {
             })}
           </div>
         </div>
-        {links.length === 0 ? (
+        {resultLinks.length === 0 ? (
           <div className={css.nothing}>저장된 링크가 없습니다</div>
         ) : (
           <div className={css.cardBox}>
-            {links.map(list => {
+            {resultLinks.map(list => {
               return <Card key={list.id} {...list} />;
             })}
           </div>

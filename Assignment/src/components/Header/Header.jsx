@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Cta from '../Cta';
+
+import logo from '@_assets/icons/i_logo.svg';
+
 import css from './Header.module.scss';
 
 const Header = () => {
@@ -40,7 +43,7 @@ const Header = () => {
     <header className={css.header}>
       <nav className={css.nav}>
         <Link to="/">
-          <img src="/icons/i_logo.svg" alt="logo" />
+          <img src={logo} alt="logo" />
         </Link>
         {isSignined ? (
           <div className={css.profileBox}>

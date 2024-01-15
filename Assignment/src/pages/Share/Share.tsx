@@ -2,8 +2,27 @@ import { useEffect, useState } from 'react';
 import Card from '../../components/Card';
 import css from './Share.module.scss';
 
+interface Folder {
+  id: number;
+  name: string;
+  owner: {
+    id: number;
+    name: string;
+    profileImageSource: string;
+  };
+  links: Links[];
+}
+
+interface Links {
+  id: number;
+  createdAt: string;
+  url: string;
+  title: string;
+  description: string;
+  imageSource: string;
+}
 const Share = () => {
-  const [folderList, setFolderList] = useState({});
+  const [folderList, setFolderList] = useState<Folder>();
 
   const getFolderList = async () => {
     try {
@@ -21,7 +40,7 @@ const Share = () => {
     getFolderList();
   }, []);
 
-  if (!folderList.id) return <></>;
+  if (!folderList?.id) return <></>;
 
   const { owner, links } = folderList;
 

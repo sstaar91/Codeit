@@ -1,17 +1,40 @@
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import ReactDom from 'react-dom';
 import Cta from '../Cta';
 
-import close from '/icons/i_close.svg';
-import kakao from '/icons/i_full_kakao.svg';
-import facebook from '/icons/i_full_facebook.svg';
-import share from '/icons/i_full_share.svg';
-import check from '/icons/i_check.svg';
+import close from '@_assets/icons/i_close.svg';
+import kakao from '@_assets/icons/i_full_kakao.svg';
+import facebook from '@_assets/icons/i_full_facebook.svg';
+import share from '@_assets/icons/i_full_share.svg';
+import check from '@_assets/icons/i_check.svg';
 
 import css from './Modal.module.scss';
 
-const ModalPortal = ({ children }) => {
-  const modalRoot = document.getElementById('modal');
+interface Props {
+  children: ReactNode;
+}
+
+interface ModalProps {
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  type: string;
+  folderName: string;
+  folderId?: number;
+  filterList?: Folder[];
+}
+
+interface Folder {
+  id: number;
+  created_at: string;
+  name: string;
+  user_id: number;
+  favorite: boolean;
+  link: {
+    count: number;
+  };
+}
+
+const ModalPortal = ({ children }: Props) => {
+  const modalRoot: any = document.getElementById('modal');
   return ReactDom.createPortal(children, modalRoot);
 };
 
@@ -21,11 +44,11 @@ const Modal = ({
   folderName,
   folderId,
   filterList = [],
-}) => {
+}: ModalProps) => {
   const [folderTitle, setFolderTitle] = useState(folderName);
-  const [selectFolderList, setSelectFolderList] = useState([]);
+  const [selectFolderList, setSelectFolderList] = useState<number[]>([]);
 
-  const handleFolderList = id => {
+  const handleFolderList = (id: number) => {
     selectFolderList.includes(id)
       ? setSelectFolderList(prev => prev.filter(el => el !== id))
       : setSelectFolderList(prev => [...prev, id]);
@@ -137,11 +160,21 @@ const Modal = ({
 
 export default Modal;
 
-const TITLE_LIST = {
-  modify: { title: '폴더 이름 변경', button: '변경하기' },
-  add: { title: '폴더 추가', button: '추가하기' },
-  share: { title: '폴더 공유', button: '' },
+const TITLE_LIST: TitleListType = {
+  modify: { title: '폴더 이름 변경', button: '변경하기', color: '' },
+  add: { title: '폴더 추가', button: '추가하기', color: '' },
+  share: { title: '폴더 공유', button: '', color: '' },
   deleteIcon: { title: '폴더 삭제', button: '삭제하기', color: 'warning' },
   linkDelete: { title: '링크 삭제', button: '삭제하기', color: 'warning' },
-  addLink: { title: '폴더에 추가', button: '추가하기' },
+  addLink: { title: '폴더에 추가', button: '추가하기', color: '' },
 };
+
+interface TitleListType {
+  [key: string]: DefatulObj;
+}
+
+interface DefatulObj {
+  title: string;
+  button: string;
+  color: string;
+}

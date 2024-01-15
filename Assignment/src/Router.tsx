@@ -14,7 +14,7 @@ const Router = () => {
         <Route path="/" element={<App />}>
           <Route index element={<Landing />} />
           <Route path="share" element={<Share />} />
-          <Route path='folder' element={<Folder />} />
+          <Route path="folder" element={<Folder />} />
           <Route path="privacy" element={<Privacy />} />
           <Route path="faq" element={<Faq />} />
         </Route>

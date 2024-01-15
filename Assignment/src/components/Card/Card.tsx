@@ -5,9 +5,21 @@ import axiosInstance from '../../utils/axiosInstance';
 import Modal from '../Modal/Modal';
 
 import defaultImage from './image/defaultImage.png';
-import star from '/icons/i_star.svg';
-import kebab from '/icons/i_kebab.svg';
+import star from '@_assets/icons/i_star.svg';
+import kebab from '@_assets/icons/i_kebab.svg';
 import css from './Card.module.scss';
+
+interface Props {
+  id: number;
+  imageSource: string;
+  image_source?: string;
+  createdAt: string;
+  created_at?: string;
+  title: string;
+  description: string;
+  folder_id?: number;
+  url: string;
+}
 
 const Card = ({
   id,
@@ -19,7 +31,7 @@ const Card = ({
   description,
   folder_id,
   url,
-}) => {
+}: Props) => {
   const [filterList, setFilterList] = useState([]);
 
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
@@ -31,12 +43,12 @@ const Card = ({
     setFilterList(res.data.data);
   };
 
-  const handleDropDown = (e, clickId) => {
+  const handleDropDown = (e: any, clickId: number) => {
     e.preventDefault();
     if (clickId === id) setIsOpenDropdown(prev => !prev);
   };
 
-  const handleIconBtn = (e, type) => {
+  const handleIconBtn = (e: any, type: string) => {
     e.preventDefault();
 
     setIsOpenDropdown(prev => !prev);
@@ -99,7 +111,7 @@ const Card = ({
         <Modal
           setIsOpenModal={setIsOpenModal}
           type={currentModalType}
-          folderId={folder_id}
+          folderId={folder_id || 0}
           folderName={url}
           filterList={filterList}
         />
