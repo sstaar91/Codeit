@@ -1,0 +1,7 @@
+.avatar {
+  @apply rounded-full overflow-hidden;
+}
+
+.mainAvatar {
+  @apply w-20 h-20;
+}

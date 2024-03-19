@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+main {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.flexCenterColumn {
+  @apply flex justify-center items-center flex-col;
+}
+
+.defaultBorder {
+  @apply border-solid border border-black;
+}
