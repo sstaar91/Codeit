@@ -1,8 +1,4 @@
-import { useState } from "react";
-
 const Login = () => {
-  const [isSignin, setIsSignin] = useState(true);
-
   return (
     <main className="flexCenterColumn h-screen font-noto">
       <form
@@ -31,10 +27,7 @@ const Login = () => {
         >
           로그인
         </button>
-        <button
-          className="py-2 px-3 w-full rounded-2xl buttonText bg-white border-2 border-main text-main"
-          onClick={() => setIsSignin((prev) => !prev)}
-        >
+        <button className="py-2 px-3 w-full rounded-2xl buttonText bg-white border-2 border-main text-main">
           회원가입
         </button>
       </form>
