@@ -23,8 +23,14 @@
     "paths": {
       "@_asset/*": ["src/assets/*"],
       "@_component/*": ["src/components/*"],
+      "@_context/*": ["src/contexts/*"],
+      "@_hook/*": ["src/hooks/*"],
+      "@_lib/*": ["src/lib/*"],
       "@_page/*": ["src/pages/*"],
-      "@_style/*": ["src/styles/*"]
+      "@_provider/*": ["src/providers/*"],
+      "@_service/*": ["src/service/*"],
+      "@_style/*": ["src/styles/*"],
+      "@_type/*": ["src/types/*"]
     }
   },
   "include": ["src"],

@@ -9,6 +9,7 @@ export default {
       },
       colors: {
         main: "#f3904f",
+        disableMain: "#f7d4bc",
       },
     },
   },

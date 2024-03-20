@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "@_page/Login";
+import UserForm from "@_page/UserForm";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<UserForm />} />
       </Routes>
     </BrowserRouter>
   );
