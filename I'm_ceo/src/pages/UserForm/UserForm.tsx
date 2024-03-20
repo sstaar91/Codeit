@@ -1,22 +1,20 @@
 import { ChangeEvent, useState } from "react";
-import { usePostSignUp } from "@_hook/useHandleUser";
+import { usePostSignIn, usePostSignUp } from "@_hook/useHandleUser";
 
 import { Logo } from "@_component/UI";
 import { Input, Radio } from "@_component/Action";
 
-import { USER_INFO, emailValid, passwordValid } from "@_context/userInfo";
+import { USER_INFO } from "@_context/userInfo";
 
 const UserForm = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [userInfo, setUserInfo] = useState(USER_INFO);
-  const { mutate, isPending } = usePostSignUp();
+  const { handleSignIn } = usePostSignIn();
+  const { handleSignUp } = usePostSignUp();
 
   const { email, password, type } = userInfo;
-  const validList = {
-    email: emailValid.test(email),
-    password: passwordValid.test(password),
-  };
-  const isAllValid = Object.values(validList).every((el) => el);
+  const signinValid = email && password;
+  const signupValid = email && password && type;
 
   const handleUserInfo = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,9 +26,15 @@ const UserForm = () => {
     setUserInfo(USER_INFO);
   };
 
+  const signIn = () => {
+    if (signinValid) {
+      handleSignIn({ email, password });
+    }
+  };
+
   const signUp = () => {
-    if (isAllValid) {
-      mutate(userInfo);
+    if (signupValid) {
+      handleSignUp(userInfo);
     }
   };
 
@@ -44,8 +48,18 @@ const UserForm = () => {
           <span className="desc2 mt-5">사장과 사장을 잇다</span>
           <Logo />
         </div>
-        <Input style="userInfo" name="email" handleInput={handleUserInfo} />
-        <Input style="userInfo" name="password" handleInput={handleUserInfo} />
+        <Input
+          style="userInfo"
+          name="email"
+          value={email}
+          handleInput={handleUserInfo}
+        />
+        <Input
+          style="userInfo"
+          name="password"
+          value={password}
+          handleInput={handleUserInfo}
+        />
         {!isSignIn && (
           <Radio
             status="signup"
@@ -55,8 +69,8 @@ const UserForm = () => {
         )}
         <button
           className="mt-4 py-2 px-3 w-full rounded-2xl buttonText text-white transition-all bg-main disabled:bg-disableMain"
-          disabled={!isAllValid}
-          onClick={isSignIn ? () => {} : signUp}
+          disabled={isSignIn ? !signinValid : !signupValid}
+          onClick={isSignIn ? signIn : signUp}
         >
           {isSignIn ? "로그인" : "회원가입"}
         </button>

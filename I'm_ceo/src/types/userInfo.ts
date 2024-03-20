@@ -12,6 +12,11 @@ export interface UserRadioType {
   type: string;
 }
 
+export interface SigninUserInfo {
+  email: string;
+  password: string;
+}
+
 export interface SignupUserInfo {
   email: string;
   password: string;

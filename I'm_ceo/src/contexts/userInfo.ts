@@ -1,10 +1,5 @@
 import { UserInfoInputType } from "@_type/userInfo";
 
-export const emailValid =
-  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
-export const passwordValid = /^(?=.*[a-z])[a-z\d]{8,}$/;
-
 export const USER_INFO = {
   email: "",
   password: "",
