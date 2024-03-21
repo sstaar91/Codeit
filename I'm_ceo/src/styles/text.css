@@ -25,7 +25,3 @@
 .desc3 {
   @apply text-xs font-normal;
 }
-
-.buttonText {
-  @apply text-sm font-bold;
-}

@@ -1,3 +1,9 @@
 .horizonRotate {
+  transition: all ease-in-out 0.5s;
   transform: rotateY(360deg);
+}
+
+.resetHorizonRotate {
+  transition: all ease-in-out 0.5s;
+  transform: rotateY(0deg);
 }

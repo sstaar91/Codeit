@@ -1,14 +1,18 @@
 import { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
+import { useAlertModalStore } from "@_lib/store";
 import { postSignIn, postSignUp } from "@_service/user";
 import { SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
 
-export const usePostSignIn = () => {
+export const usePostSignIn = (handleModal: () => void) => {
+  const { changeText } = useAlertModalStore();
+
   const { mutate: handleSignIn, isPending } = useMutation({
     mutationFn: (userData: SigninUserInfo) => postSignIn(userData),
     onSuccess: ({ data }) => {
       if (data.item) {
-        alert("환영합니다!");
+        changeText("ㅇㅆㅇ", "환영합니다!");
+        handleModal();
       }
     },
     onError: (e: AxiosError) => {
@@ -23,12 +27,13 @@ export const usePostSignIn = () => {
   return { handleSignIn, isPending };
 };
 
-export const usePostSignUp = () => {
+export const usePostSignUp = (changeForm: () => void) => {
   const { mutate: handleSignUp, isPending } = useMutation({
     mutationFn: (userData: SignupUserInfo) => postSignUp(userData),
     onSuccess: ({ data }) => {
       if (data.item) {
         alert("회원가입이 완료 되었습니다!");
+        changeForm();
       }
     },
     onError: (e: AxiosError) => {

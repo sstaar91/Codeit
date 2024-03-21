@@ -1,0 +1,11 @@
+.default {
+  @apply py-2 px-3 rounded-2xl text-sm font-bold;
+}
+
+.confirm {
+  @apply text-white bg-main;
+}
+
+.cancle {
+  @apply bg-white border-2 border-main text-main;
+}
