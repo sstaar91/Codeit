@@ -11,7 +11,7 @@ export const usePostSignIn = (handleModal: () => void) => {
     mutationFn: (userData: SigninUserInfo) => postSignIn(userData),
     onSuccess: ({ data }) => {
       if (data.item) {
-        changeText("ㅇㅆㅇ", "환영합니다!");
+        changeText("어서오세요 사장님!", "");
         handleModal();
       }
     },
@@ -27,13 +27,15 @@ export const usePostSignIn = (handleModal: () => void) => {
   return { handleSignIn, isPending };
 };
 
-export const usePostSignUp = (changeForm: () => void) => {
+export const usePostSignUp = (handleModal: () => void) => {
+  const { changeText } = useAlertModalStore();
+
   const { mutate: handleSignUp, isPending } = useMutation({
     mutationFn: (userData: SignupUserInfo) => postSignUp(userData),
     onSuccess: ({ data }) => {
       if (data.item) {
-        alert("회원가입이 완료 되었습니다!");
-        changeForm();
+        changeText("회원가입 완료!", "");
+        handleModal();
       }
     },
     onError: (e: AxiosError) => {

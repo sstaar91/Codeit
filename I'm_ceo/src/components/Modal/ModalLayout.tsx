@@ -1,5 +1,4 @@
 import { ReactNode, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Modal } from "@mui/base";
 
 import AlertModal from "./AlertModal";
@@ -9,19 +8,13 @@ import "./modal.css";
 interface Props {
   type: string;
   status: boolean;
-  handleModal: () => void;
+  handleConfirmBtn: () => void;
+  closeModal: () => void;
 }
 
-const ModalLayout = ({ type, status, handleModal }: Props) => {
-  const navigate = useNavigate();
-
-  const successSignin = () => {
-    handleModal();
-    navigate("/myPage");
-  };
-
+const ModalLayout = ({ type, status, handleConfirmBtn, closeModal }: Props) => {
   const modalList: { [key: string]: ReactNode } = {
-    signin: <AlertModal handleModal={successSignin} />,
+    sign: <AlertModal handleConfirmBtn={handleConfirmBtn} />,
   };
 
   useEffect(() => {
@@ -33,10 +26,8 @@ const ModalLayout = ({ type, status, handleModal }: Props) => {
   }, []);
 
   return (
-    <Modal open={status} onClose={handleModal} closeAfterTransition>
-      <div className="dimmedBackground flexCenterColumn" onClick={handleModal}>
-        {modalList[type]}
-      </div>
+    <Modal open={status} onClose={closeModal} closeAfterTransition className="dimmedBackground flexCenterColumn">
+      <>{modalList[type]}</>
     </Modal>
   );
 };

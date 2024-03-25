@@ -10,20 +10,9 @@ interface Props {
   clickAction: () => void;
 }
 
-const Button = ({
-  children,
-  type,
-  size = "w-full",
-  addStyle = "",
-  disabled = false,
-  clickAction,
-}: Props) => {
+const Button = ({ children, type, size = "w-full", addStyle = "", disabled = false, clickAction }: Props) => {
   return (
-    <button
-      className={`default ${type} ${size} ${addStyle}`}
-      disabled={disabled}
-      onClick={clickAction}
-    >
+    <button disabled={disabled} onClick={clickAction} className={`default ${type} ${size} ${addStyle} ${disabled ? "disabled" : ""}`}>
       {children}
     </button>
   );

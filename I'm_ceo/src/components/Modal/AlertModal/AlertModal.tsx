@@ -1,21 +1,18 @@
-import { Button } from "@_component/Action";
 import { useAlertModalStore } from "@_lib/store";
+import { Button } from "@_component/Action";
 
 interface Props {
-  handleModal: () => void;
+  handleConfirmBtn: () => void;
 }
 
-const AlertModal = ({ handleModal }: Props) => {
+const AlertModal = ({ handleConfirmBtn }: Props) => {
   const { title, description } = useAlertModalStore();
 
   return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-      className="flexCenterColumn modalBox"
-    >
-      <h2>{title}</h2>
-      <span>{description}</span>
-      <Button type="confirm" size="w-1/2" clickAction={handleModal}>
+    <div onClick={(e) => e.stopPropagation()} className="flexCenterColumn modalBox gap-4">
+      <h2 className="text-black h4 font-dongle">{title}</h2>
+      <span className="desc2">{description}</span>
+      <Button type="confirm" size="w-1/2" clickAction={handleConfirmBtn}>
         확인
       </Button>
     </div>

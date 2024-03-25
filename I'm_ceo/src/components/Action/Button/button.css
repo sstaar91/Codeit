@@ -1,5 +1,5 @@
 .default {
-  @apply py-2 px-3 rounded-2xl text-sm font-bold;
+  @apply py-2 px-3 rounded-2xl text-sm font-bold transition-all;
 }
 
 .confirm {
@@ -8,4 +8,8 @@
 
 .cancle {
   @apply bg-white border-2 border-main text-main;
+}
+
+.disabled {
+  @apply bg-slate-200 border-2 border-slate-400 text-white cursor-not-allowed transition-all;
 }

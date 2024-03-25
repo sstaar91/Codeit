@@ -15,6 +15,6 @@ export const userInfoList: UserInfoInputType = {
 };
 
 export const userRadioList = [
-  { id: 1, title: "가맹점주", name: "type", type: "employee" },
-  { id: 2, title: "본사", name: "type", type: "employer" },
+  { id: 1, title: "👩‍🍳 가맹점주", name: "type", type: "employee" },
+  { id: 2, title: "👨‍💻 본사", name: "type", type: "employer" },
 ];

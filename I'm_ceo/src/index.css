@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-main {
+body {
   max-width: 1280px;
   margin: 0 auto;
+  @apply font-noto;
 }
 
 .flexCenterColumn {

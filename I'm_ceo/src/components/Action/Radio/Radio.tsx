@@ -19,19 +19,12 @@ const Radio = ({ status, checkValue, handleRadio }: Props) => {
         return (
           <Fragment key={id}>
             <label
-              className={`py-2 px-3 w-full rounded-2xl text-sm font-bold border-2 border-main ${checkValue === type ? "text-white bg-main" : "bg-white text-main"}`}
+              className={`py-2 px-3 w-full text-sm font-bold cursor-pointer ${checkValue === type ? "border-main  border-b-2 text-main" : "text-slate-300"}`}
               htmlFor={type}
             >
               {title}
             </label>
-            <input
-              className="hidden"
-              type="radio"
-              id={type}
-              name={name}
-              value={type}
-              onChange={handleRadio}
-            />
+            <input className="hidden" type="radio" id={type} name={name} value={type} onChange={handleRadio} />
           </Fragment>
         );
       })}
