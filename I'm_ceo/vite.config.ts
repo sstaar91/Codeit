@@ -11,6 +11,7 @@ export default defineConfig({
         find: "@_component",
         replacement: resolve(__dirname, "src/components"),
       },
+      { find: "@_constant", replacement: resolve(__dirname, "src/constants") },
       { find: "@_context", replacement: resolve(__dirname, "src/contexts") },
       { find: "@_hook", replacement: resolve(__dirname, "src/hooks") },
       { find: "@_lib", replacement: resolve(__dirname, "src/lib") },

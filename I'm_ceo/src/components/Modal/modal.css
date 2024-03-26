@@ -3,5 +3,5 @@
 }
 
 .modalBox {
-  @apply py-6 px-3 gap-2 w-80 bg-white rounded-2xl;
+  @apply py-6 px-3 gap-2 w-4/5 max-w-[600px] bg-white rounded-2xl;
 }

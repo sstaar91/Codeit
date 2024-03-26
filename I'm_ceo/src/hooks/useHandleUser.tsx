@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { AxiosError } from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAlertModalStore } from "@_lib/store";
-import { postSignIn, postSignUp } from "@_service/user";
-import { SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
+import { getUserInfo, postSignIn, postSignUp } from "@_service/user";
+import { GetUserInfo, SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
 
 export const usePostSignIn = (handleModal: () => void) => {
   const { changeText } = useAlertModalStore();
@@ -12,6 +13,10 @@ export const usePostSignIn = (handleModal: () => void) => {
     onSuccess: ({ data }) => {
       if (data.item) {
         changeText("어서오세요 사장님!", "");
+        localStorage.setItem("token", data.item.token);
+        localStorage.setItem("userId", data.item.user.item.id);
+        localStorage.setItem("userType", data.item.user.item.type);
+
         handleModal();
       }
     },
@@ -48,4 +53,20 @@ export const usePostSignUp = (handleModal: () => void) => {
   });
 
   return { handleSignUp, isPending };
+};
+
+export const useGetUserInfo = () => {
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["userInfo"],
+    queryFn: async () => {
+      const data = await getUserInfo();
+      return data.data.item;
+    },
+  });
+
+  if (isError) {
+    alert("다시 시도해주세요!");
+  }
+
+  return { userInfo: data, userInfoLoading: isPending };
 };

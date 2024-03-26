@@ -70,7 +70,7 @@ const UserForm = () => {
           </Button>
         </div>
       </form>
-      <ModalLayout type="sign" status={isModalOpen} handleConfirmBtn={handleConfirmBtn} closeModal={() => setIsModalOpen((prev) => !prev)} />
+      <ModalLayout category="sign" status={isModalOpen} handleConfirmBtn={handleConfirmBtn} closeModal={() => setIsModalOpen((prev) => !prev)} />
     </main>
   );
 };

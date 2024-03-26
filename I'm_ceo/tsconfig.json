@@ -23,6 +23,7 @@
     "paths": {
       "@_asset/*": ["src/assets/*"],
       "@_component/*": ["src/components/*"],
+      "@_constant/*": ["src/constants/*"],
       "@_context/*": ["src/contexts/*"],
       "@_hook/*": ["src/hooks/*"],
       "@_lib/*": ["src/lib/*"],

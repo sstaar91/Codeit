@@ -1,7 +1,7 @@
 @import "@_style/text.css";
 
 .userInfo {
-  @apply desc3 p-2 h-8 bg-transparent border-dashed border-b-2 w-full;
+  @apply desc2 p-2 h-8 bg-transparent border-dashed border-b-2 w-full;
 }
 
 .userInfo:focus {
