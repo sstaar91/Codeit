@@ -1,17 +1,21 @@
-const ImageBox = () => {
+interface Props {
+  value:string;
+  uploadImage:(e: React.ChangeEvent<HTMLInputElement>)=>void;
+}
+
+const ImageBox = ({value, uploadImage}:Props) => {
   return (
     <>
       <label htmlFor="imageUpload" className="flexCenterColumn row-span-3 h-[150px] w-full bg-transparent border-dashed border-2 rounded-lg">
-        {/* {value ? (
-          <img src={String(value)} alt="미리보기 이미지" className={css.preview} />
+        {value ? (
+          <img src={value} alt="미리보기 이미지" />
         ) : (
           <div>
-            <Icon title="camera" />
-            <div className={css.message}>이미지 추가하기</div>
+            <div>이미지 추가하기</div>
           </div>
-        )} */}
+        )}
       </label>
-      <input id="imageUpload" type="file" className="hidden" />
+      <input id="imageUpload" type="file" className="hidden" onChange={uploadImage} />
     </>
   );
 };

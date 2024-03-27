@@ -1,12 +1,12 @@
 import { ChangeEvent, Fragment, MouseEvent, useState } from "react";
-import { usePostImageUpload } from "@_hook/useHandleImage";
+import axios from "axios";
+import { api } from "@_lib/api";
 
 import { ImageBox, Input, Select, Textarea } from "@_component/Action";
 
 import { EMPLOYEE_DETAIL_INFO, EMPLOYER_DETAIL_INFO } from "@_context/userInfo";
 import { employeeInputList, employerInputList } from "@_constant/actionProperty";
 import { DetailUserInfo } from "@_type/userInfo";
-import axios from "axios";
 
 interface Props {
   isEmployer: boolean;
@@ -16,7 +16,6 @@ interface Props {
 const UserInfoModal = ({ isEmployer, handleConfirmBtn }: Props) => {
   const [userDetailInfo, setUserDetailInfo] = useState<DetailUserInfo>(isEmployer ? EMPLOYER_DETAIL_INFO : EMPLOYEE_DETAIL_INFO);
   const [curSelectType, setCurSelectType] = useState("");
-  const { imageUpload, url, imageLoading } = usePostImageUpload();
 
   const onCloseDropDown = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -44,17 +43,23 @@ const UserInfoModal = ({ isEmployer, handleConfirmBtn }: Props) => {
     }
 
     const file = e.target.files[0];
-    imageUpload(file.name);
+    const {data} = await api.post(`${import.meta.env.VITE_BASE_URL}/images`, { name:file.name });
 
-    if (url) {
-      const res = await axios.put(url, file);
+    const presignedURL = await data.item.url;
+        const putUrl = await presignedURL.slice(0, presignedURL.indexOf("?"));
 
-      if (res.status === 200) {
-        const { data } = await axios.get(url);
-        setUserDetailInfo((prev) => ({ ...prev, imageUrl: data.url }));
-      }
-    }
+        const res = await axios.put(presignedURL, file);
+
+        if (res.status === 200) {
+          const res = await axios.get(putUrl);
+
+          if(res.status === 200) {
+          setUserDetailInfo((prev) => ({ ...prev, imageUrl: putUrl }));
+          }
+        }
+
   };
+
 
   return (
     <article onClick={(e) => onCloseDropDown(e)} className="flexCenterColumn modalBox gap-4">
@@ -75,7 +80,7 @@ const UserInfoModal = ({ isEmployer, handleConfirmBtn }: Props) => {
                   onSelectOption={onSelectOption}
                 />
               )}
-              {el.component === "image" && <ImageBox />}
+              {el.component === "image" && <ImageBox value={userDetailInfo[el.name] as string} uploadImage={uploadImage}/>}
               {el.component === "textarea" && <Textarea type={localStorage.getItem("userType") || ""} value={userDetailInfo[el.name] as string} />}
             </Fragment>
           );

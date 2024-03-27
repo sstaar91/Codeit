@@ -14,6 +14,3 @@ export const getUserInfo = () => {
   return api.get(`${import.meta.env.VITE_BASE_URL}/users/${localStorage.getItem("userId")}`);
 };
 
-export const postImageUpload = (name: string): Promise<AxiosResponse> => {
-  return api.post(`${import.meta.env.VITE_BASE_URL}/images`, { name });
-};
