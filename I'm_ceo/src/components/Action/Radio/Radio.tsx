@@ -1,5 +1,5 @@
 import { ChangeEvent, Fragment } from "react";
-import { userRadioList } from "@_context/userInfo";
+import { userRadioList } from "@_constant/actionProperty";
 import { UserRadioType } from "@_type/userInfo";
 
 interface Props {

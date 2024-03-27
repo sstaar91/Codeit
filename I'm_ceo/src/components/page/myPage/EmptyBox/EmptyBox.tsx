@@ -8,7 +8,7 @@ interface Props {
 const EmptyBox = ({ clickConfirm }: Props) => {
   return (
     <article className="flexCenterColumn gap-12 py-6 h-full max-w-[640px] w-full rounded-2xl border-dashed border-2 border-main">
-      <h3 className="text-center mx-5 text-wrap break-keep">{EMPTY_USERINFO_MESSAGE}</h3>
+      <h3 className="text-center mx-5 text-wrap break-keep whitespace-pre-wrap">{EMPTY_USERINFO_MESSAGE}</h3>
       <div className="flexCenterColumn animate-bounce w-24 h-24 rounded-full border-dashed border-2 border-slate-300 text-5xl font-bold  text-slate-300">
         ?
       </div>

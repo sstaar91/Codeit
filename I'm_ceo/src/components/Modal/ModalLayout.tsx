@@ -1,20 +1,22 @@
 import { ReactNode, useEffect } from "react";
 import { Modal } from "@mui/base";
 
-import AlertModal from "./AlertModal";
+import { UserInfoModal, AlertModal } from ".";
 
 import "./modal.css";
 
 interface Props {
-  type: string;
+  category: string;
+  type?: string;
   status: boolean;
   handleConfirmBtn: () => void;
   closeModal: () => void;
 }
 
-const ModalLayout = ({ type, status, handleConfirmBtn, closeModal }: Props) => {
+const ModalLayout = ({ category, type, status, handleConfirmBtn, closeModal }: Props) => {
   const modalList: { [key: string]: ReactNode } = {
     sign: <AlertModal handleConfirmBtn={handleConfirmBtn} />,
+    user: <UserInfoModal isEmployer={type === "employer"} handleConfirmBtn={handleConfirmBtn} />,
   };
 
   useEffect(() => {
@@ -26,8 +28,8 @@ const ModalLayout = ({ type, status, handleConfirmBtn, closeModal }: Props) => {
   }, []);
 
   return (
-    <Modal open={status} onClose={closeModal} closeAfterTransition className="dimmedBackground flexCenterColumn">
-      <>{modalList[type]}</>
+    <Modal open={status} onClick={closeModal} className="dimmedBackground flexCenterColumn z-50">
+      <>{modalList[category]}</>
     </Modal>
   );
 };

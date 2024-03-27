@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAlertModalStore } from "@_lib/store";
-import { getUserInfo, postSignIn, postSignUp } from "@_service/user";
-import { GetUserInfo, SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
+import { getUserInfo, postImageUpload, postSignIn, postSignUp } from "@_service/user";
+import { SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
 
 export const usePostSignIn = (handleModal: () => void) => {
   const { changeText } = useAlertModalStore();

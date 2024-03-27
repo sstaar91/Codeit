@@ -1,10 +1,3 @@
-export interface UserInfoInputType {
-  [key: string]: {
-    type: string;
-    placeholder: string;
-  };
-}
-
 export interface UserRadioType {
   id: number;
   title: string;
