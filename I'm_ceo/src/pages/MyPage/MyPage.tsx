@@ -7,10 +7,10 @@ import { useGetUserInfo } from "@_hook/useHandleUser";
 
 const MyPage = () => {
   const [curModal, setCurModal] = useState("");
-  const { userInfo, userInfoLoading } = useGetUserInfo();
+  const { userInfo, userInfoLoading, refetch } = useGetUserInfo();
 
   const isEmployer = localStorage.getItem("userType") === "employer";
-  const isRegistUser = isEmployer ? userInfo?.name : userInfo?.shop;
+  const isRegistUser = isEmployer ? userInfo?.shop : userInfo?.name;
 
   const handleModal = (value: string) => {
     setCurModal(value);
@@ -25,8 +25,8 @@ const MyPage = () => {
         category="user"
         type={localStorage.getItem("userType") as string}
         status={curModal !== ""}
-        handleConfirmBtn={() => {}}
         closeModal={() => handleModal("")}
+        handleConfirmBtn={() => refetch()}
       />
     </main>
   );

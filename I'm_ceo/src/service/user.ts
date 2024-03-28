@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
+import { EmployeeDetailInfo, EmployerDetailInfo, SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
 import { api } from "@_lib/api";
 
 export const postSignIn = (body: SigninUserInfo): Promise<AxiosResponse> => {
@@ -14,3 +14,10 @@ export const getUserInfo = () => {
   return api.get(`${import.meta.env.VITE_BASE_URL}/users/${localStorage.getItem("userId")}`);
 };
 
+export const postEmployeeDetail = (body: EmployeeDetailInfo) => {
+  return api.put(`${import.meta.env.VITE_BASE_URL}/users/${localStorage.getItem("userId")}`, body);
+};
+
+export const postEmployerDetail = (body: EmployerDetailInfo) => {
+  return api.post(`${import.meta.env.VITE_BASE_URL}/shops`, body);
+};

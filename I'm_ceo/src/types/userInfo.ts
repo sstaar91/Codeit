@@ -38,15 +38,22 @@ export interface GetUserInfo {
   } | null;
 }
 
-export interface DetailUserInfo {
+export interface DetailUserInfo extends EmployeeDetailInfo, EmployerDetailInfo {
   [key: string]: string | number | undefined | null;
+}
+
+export interface EmployeeDetailInfo {
   name: string;
-  category?: string;
   address?: string;
-  address1?: string;
-  address2?: string;
   phone?: string;
   bio?: string;
+}
+
+export interface EmployerDetailInfo {
+  name: string;
+  category?: string;
+  address1?: string;
+  address2?: string;
   originalHourlyPay?: number | null;
   imageUrl?: string;
   description?: string;

@@ -6,7 +6,7 @@ interface Props {
   style: string;
   name: string;
   value: string | number;
-  handleInput: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleInput: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 const Input = ({ style, name, value, handleInput }: Props) => {

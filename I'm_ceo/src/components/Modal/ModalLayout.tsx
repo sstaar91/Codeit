@@ -9,14 +9,14 @@ interface Props {
   category: string;
   type?: string;
   status: boolean;
-  handleConfirmBtn: () => void;
+  handleConfirmBtn?: () => void;
   closeModal: () => void;
 }
 
-const ModalLayout = ({ category, type, status, handleConfirmBtn, closeModal }: Props) => {
+const ModalLayout = ({ category, type, status, handleConfirmBtn = () => {}, closeModal }: Props) => {
   const modalList: { [key: string]: ReactNode } = {
     sign: <AlertModal handleConfirmBtn={handleConfirmBtn} />,
-    user: <UserInfoModal isEmployer={type === "employer"} handleConfirmBtn={handleConfirmBtn} />,
+    user: <UserInfoModal isEmployer={type === "employer"} closeModal={closeModal} handleConfirmBtn={handleConfirmBtn} />,
   };
 
   useEffect(() => {
