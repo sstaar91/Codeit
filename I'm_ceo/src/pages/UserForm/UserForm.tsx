@@ -21,7 +21,7 @@ const UserForm = () => {
   const signinValid = email && password;
   const signupValid = signinValid && type;
 
-  const handleUserInfo = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUserInfo = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setUserInfo((prev) => ({ ...prev, [name]: value }));
   };
@@ -62,11 +62,11 @@ const UserForm = () => {
         <Input style="userInfo" name="password" value={password} handleInput={handleUserInfo} />
         {!isSignIn && <Radio status="signup" checkValue={type} handleRadio={handleUserInfo} />}
         <div className="grid grid-cols-[1fr_1fr] gap-2 mt-6 w-full">
-          <Button type="cancle" clickAction={changeForm}>
-            {isSignIn ? "가입할래요" : "로그인 할래요"}
-          </Button>
           <Button type="confirm" disabled={isSignIn ? !signinValid : !signupValid} clickAction={sign}>
             {isSignIn ? "로그인" : "회원가입"}
+          </Button>
+          <Button type="cancle" clickAction={changeForm}>
+            {isSignIn ? "가입할래요" : "로그인 할래요"}
           </Button>
         </div>
       </form>

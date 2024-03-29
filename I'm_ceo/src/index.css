@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 body {
-  max-width: 1280px;
-  margin: 0 auto;
   @apply font-noto;
+  position: relative;
+  margin: 0 auto;
+  max-width: 1280px;
+  word-break: keep-all;
 }
 
 .flexCenterColumn {

@@ -1,6 +1,8 @@
 import menu from "@_asset/icons/i_menu.svg";
 import image from "@_asset/icons/i_image.svg";
 import loading from "@_asset/icons/i_loading.svg";
+import map from "@_asset/icons/i_map.svg";
+import money from "@_asset/icons/i_money.svg";
 
 interface Props {
   type: string;
@@ -13,6 +15,8 @@ const iconList: { [key: string]: string } = {
   menu,
   image,
   loading,
+  map,
+  money,
 };
 
 const Icon = ({ type, size, animation, clickAction = () => {} }: Props) => {

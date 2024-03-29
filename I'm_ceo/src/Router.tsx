@@ -3,6 +3,7 @@ import Nav from "@_component/Nav";
 import Main from "@_page/Main";
 import UserForm from "@_page/UserForm";
 import MyPage from "@_page/MyPage";
+import { Toast } from "@_component/UI";
 
 const Router = () => {
   return (
@@ -13,6 +14,7 @@ const Router = () => {
         <Route path="/sign" element={<UserForm />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>
+      <Toast />
     </BrowserRouter>
   );
 };

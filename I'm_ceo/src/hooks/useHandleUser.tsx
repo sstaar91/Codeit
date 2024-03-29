@@ -1,8 +1,11 @@
 import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAlertModalStore } from "@_lib/store";
 import { getUserInfo, postEmployeeDetail, postEmployerDetail, postSignIn, postSignUp } from "@_service/user";
 import { EmployeeDetailInfo, EmployerDetailInfo, SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export const usePostSignIn = (handleModal: () => void) => {
   const { changeText } = useAlertModalStore();
@@ -23,7 +26,7 @@ export const usePostSignIn = (handleModal: () => void) => {
       if (e.response?.data) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data }: any = e.response;
-        alert(`${data.message || "다시 시도해주세요"}`);
+        toast.error(`${data.message || "다시 시도해주세요"}`);
       }
     },
   });
@@ -32,13 +35,11 @@ export const usePostSignIn = (handleModal: () => void) => {
 };
 
 export const usePostSignUp = (handleModal: () => void) => {
-  const { changeText } = useAlertModalStore();
-
   const { mutate: handleSignUp, isPending } = useMutation({
     mutationFn: (userData: SignupUserInfo) => postSignUp(userData),
     onSuccess: ({ data }) => {
       if (data.item) {
-        changeText("회원가입 완료!", "");
+        toast.success("회원가입을 완료했습니다!");
         handleModal();
       }
     },
@@ -46,7 +47,7 @@ export const usePostSignUp = (handleModal: () => void) => {
       if (e.response?.data) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data }: any = e.response;
-        alert(`${data.message || "다시 시도해주세요"}`);
+        toast.error(`${data.message || "다시 시도해주세요"}`);
       }
     },
   });
@@ -54,17 +55,34 @@ export const usePostSignUp = (handleModal: () => void) => {
   return { handleSignUp, isPending };
 };
 
-export const useGetUserInfo = () => {
+export const useGetUserInfo = (type: string) => {
   const { data, isPending, isError, refetch } = useQuery({
     queryKey: ["userInfo"],
     queryFn: async () => {
-      const data = await getUserInfo();
-      return data.data.item;
+      const { data } = await getUserInfo();
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const dataList: { [key: string]: any } = {
+        employeeDetail: { name: data.name, phone: data.phone, address: data.address, bio: data.bio },
+        employerDetail: {
+          name: data.shop.item.name,
+          category: data.shop.item.category,
+          address1: data.shop.item.address1,
+          address2: data.shop.item.address2,
+          description: data.shop.item.description,
+          imageUrl: data.shop.item.imageUrl,
+          originalHourlyPay: data.shop.item.originalHourlyPay,
+        },
+      };
+
+      console.log(data);
+
+      return dataList[type];
     },
   });
 
   if (isError) {
-    alert("다시 시도해주세요!");
+    toast.error("다시 시도해주세요!");
   }
 
   return { userInfo: data, userInfoLoading: isPending, refetch };
@@ -85,13 +103,14 @@ export const usePostUserDetail = (isEmployer: boolean, closeModal: () => void, r
       if (data) {
         closeModal();
         refetch();
+        toast.success("등록이 완료되었습니다!");
       }
     },
     onError: (e: AxiosError) => {
       if (e.response?.data) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data }: any = e.response;
-        alert(`${data.message || "다시 시도해주세요"}`);
+        toast.error(`${data.message || "다시 시도해주세요"}`);
       }
     },
   });
