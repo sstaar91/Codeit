@@ -34,7 +34,7 @@ const ImageBox = ({ value, setData }: Props) => {
 
   return (
     <>
-      <label htmlFor="imageUpload" className="flexCenterColumn row-span-3 h-[150px] w-full bg-transparent border-dashed border-2 rounded-lg">
+      <label htmlFor="imageUpload" className="flexCenterColumn row-span-3 h-[150px] w-full bg-transparent border-dashed border-2 rounded-lg overflow-hidden object-cover object-center">
         {value ? (
           <img src={value} alt="미리보기 이미지" />
         ) : (
@@ -51,27 +51,3 @@ const ImageBox = ({ value, setData }: Props) => {
 
 export default ImageBox;
 
-// .imageLabel {
-//     display: flex;
-//     justify-content: center;
-//     flex-direction: column;
-//     align-items: center;
-//     text-align: center;
-
-//     width: 100%;
-//     height: 283px;
-//     background-color: $gray_10;
-//     border: 1px solid $gray_30;
-//     border-radius: 5px;
-//     margin-top: 10px;
-//     color: $gray_50;
-//     overflow: hidden;
-
-//     cursor: pointer;
-//   }
-
-//   .preview {
-//     width: 100%;
-//     object-fit: cover;
-//     object-position: center;
-//   }
