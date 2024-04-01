@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAlertModalStore } from "@_lib/store";
-import { getUserInfo, postEmployeeDetail, postEmployerDetail, postSignIn, postSignUp } from "@_service/user";
+import { getUserInfo, postEmployeeDetail, postEmployerDetail, postSignIn, postSignUp, putEmployerDetail } from "@_service/user";
 import { EmployeeDetailInfo, EmployerDetailInfo, SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -24,7 +24,6 @@ export const usePostSignIn = (handleModal: () => void) => {
     },
     onError: (e: AxiosError) => {
       if (e.response?.data) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data }: any = e.response;
         toast.error(`${data.message || "다시 시도해주세요"}`);
       }
@@ -45,7 +44,6 @@ export const usePostSignUp = (handleModal: () => void) => {
     },
     onError: (e: AxiosError) => {
       if (e.response?.data) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data }: any = e.response;
         toast.error(`${data.message || "다시 시도해주세요"}`);
       }
@@ -55,29 +53,14 @@ export const usePostSignUp = (handleModal: () => void) => {
   return { handleSignUp, isPending };
 };
 
-export const useGetUserInfo = (type: string) => {
-  const { data, isPending, isError, refetch } = useQuery({
-    queryKey: ["userInfo"],
+export const useGetUserInfo = () => {
+  const id = localStorage.getItem("userId") || "";
+
+  const { data, isError, isPending, refetch } = useQuery({
+    queryKey: ["userInfo", id],
     queryFn: async () => {
-      const { data } = await getUserInfo();
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const dataList: { [key: string]: any } = {
-        employeeDetail: { name: data.name, phone: data.phone, address: data.address, bio: data.bio },
-        employerDetail: {
-          name: data.shop.item.name,
-          category: data.shop.item.category,
-          address1: data.shop.item.address1,
-          address2: data.shop.item.address2,
-          description: data.shop.item.description,
-          imageUrl: data.shop.item.imageUrl,
-          originalHourlyPay: data.shop.item.originalHourlyPay,
-        },
-      };
-
-      console.log(data);
-
-      return dataList[type];
+      const { data } = await getUserInfo(id);
+      return data.item;
     },
   });
 
@@ -97,7 +80,7 @@ export const usePostUserDetail = (isEmployer: boolean, closeModal: () => void, r
     }
   };
 
-  const { mutate: postUserDetail, isPending } = useMutation({
+  const { mutate: postUserDetail, isPending: postLoading } = useMutation({
     mutationFn: (userData: EmployeeDetailInfo | EmployerDetailInfo) => checkType(userData),
     onSuccess: ({ data }) => {
       if (data) {
@@ -108,12 +91,40 @@ export const usePostUserDetail = (isEmployer: boolean, closeModal: () => void, r
     },
     onError: (e: AxiosError) => {
       if (e.response?.data) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data }: any = e.response;
         toast.error(`${data.message || "다시 시도해주세요"}`);
       }
     },
   });
 
-  return { postUserDetail, isPending };
+  return { postUserDetail, postLoading };
+};
+
+export const usePutUserDetail = (isEmployer: boolean, closeModal: () => void, refetch: () => void) => {
+  const checkType = (userData: EmployeeDetailInfo | EmployerDetailInfo) => {
+    if (isEmployer) {
+      return putEmployerDetail(userData);
+    } else {
+      return postEmployeeDetail(userData);
+    }
+  };
+
+  const { mutate: putUserDetail, isPending: putLoading } = useMutation({
+    mutationFn: (userData: EmployeeDetailInfo | EmployerDetailInfo) => checkType(userData),
+    onSuccess: ({ data }) => {
+      if (data) {
+        closeModal();
+        refetch();
+        toast.success("수정이 완료되었습니다!");
+      }
+    },
+    onError: (e: AxiosError) => {
+      if (e.response?.data) {
+        const { data }: any = e.response;
+        toast.error(`${data.message || "다시 시도해주세요"}`);
+      }
+    },
+  });
+
+  return { putUserDetail, putLoading };
 };

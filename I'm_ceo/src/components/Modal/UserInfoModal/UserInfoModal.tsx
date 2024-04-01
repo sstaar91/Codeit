@@ -1,5 +1,5 @@
 import { ChangeEvent, Fragment, MouseEvent, useEffect, useState } from "react";
-import { useGetUserInfo, usePostUserDetail } from "@_hook/useHandleUser";
+import { useGetUserInfo, usePostUserDetail, usePutUserDetail } from "@_hook/useHandleUser";
 
 import { Button, ImageBox, Input, Select, Textarea } from "@_component/Action";
 import { Icon } from "@_component/UI";
@@ -17,8 +17,13 @@ interface Props {
 const UserInfoModal = ({ isEmployer, closeModal, handleConfirmBtn }: Props) => {
   const [userDetailInfo, setUserDetailInfo] = useState<DetailUserInfo>(isEmployer ? EMPLOYER_DETAIL_INFO : EMPLOYEE_DETAIL_INFO);
   const [curSelectType, setCurSelectType] = useState("");
+  const { userInfo } = useGetUserInfo();
 
-  const { postUserDetail, isPending } = usePostUserDetail(isEmployer, closeModal, handleConfirmBtn);
+  const { postUserDetail, postLoading } = usePostUserDetail(isEmployer, closeModal, handleConfirmBtn);
+  const { putUserDetail, putLoading } = usePutUserDetail(isEmployer, closeModal, handleConfirmBtn);
+
+  const newUserInfo = isEmployer ? userInfo?.shop.item : userInfo;
+  const isSendDataLoading = postLoading && putLoading;
 
   const onCloseDropDown = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -39,11 +44,23 @@ const UserInfoModal = ({ isEmployer, closeModal, handleConfirmBtn }: Props) => {
   };
 
   const onSendUserDetail = () => {
-    postUserDetail(userDetailInfo);
+    newUserInfo.name ? putUserDetail(userDetailInfo) : postUserDetail(userDetailInfo);
   };
 
   const inputList = isEmployer ? employerInputList : employeeInputList;
   const isAllInfoEntered = Object.values(userDetailInfo).every((el) => el);
+
+  useEffect(() => {
+    if (newUserInfo.name) {
+      const infoKeys = Object.keys(userDetailInfo);
+      const newInfos = { ...userDetailInfo };
+      infoKeys.forEach((el) => {
+        newInfos[el] = newUserInfo[el];
+      });
+
+      setUserDetailInfo(newInfos);
+    }
+  }, []);
 
   return (
     <article onClick={(e) => onCloseDropDown(e)} className="flexCenterColumn modalBox gap-4">
@@ -74,8 +91,8 @@ const UserInfoModal = ({ isEmployer, closeModal, handleConfirmBtn }: Props) => {
       </div>
       <Button type="confirm" size="w-1/2" disabled={!isAllInfoEntered} clickAction={onSendUserDetail}>
         <span className="flex justify-center gap-1">
-          {isPending && <Icon type="loading" size="w-4" animation="animate-spin" />}
-          등록하기
+          {isSendDataLoading && <Icon type="loading" size="w-4" animation="animate-spin" />}
+          {newUserInfo.name ? "수정하기" : "등록하기"}
         </span>
       </Button>
     </article>

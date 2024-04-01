@@ -10,8 +10,8 @@ export const postSignUp = (body: SignupUserInfo): Promise<AxiosResponse> => {
   return axios.post(`${import.meta.env.VITE_BASE_URL}/users`, body);
 };
 
-export const getUserInfo = () => {
-  return api.get(`${import.meta.env.VITE_BASE_URL}/users/${localStorage.getItem("userId")}`);
+export const getUserInfo = (id: string) => {
+  return api.get(`${import.meta.env.VITE_BASE_URL}/users/${id}`);
 };
 
 export const postEmployeeDetail = (body: EmployeeDetailInfo) => {
@@ -20,4 +20,8 @@ export const postEmployeeDetail = (body: EmployeeDetailInfo) => {
 
 export const postEmployerDetail = (body: EmployerDetailInfo) => {
   return api.post(`${import.meta.env.VITE_BASE_URL}/shops`, body);
+};
+
+export const putEmployerDetail = (body: EmployerDetailInfo) => {
+  return api.put(`${import.meta.env.VITE_BASE_URL}/shops`, body);
 };

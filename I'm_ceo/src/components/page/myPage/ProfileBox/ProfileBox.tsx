@@ -6,16 +6,17 @@ import defaultImage from "@_asset/images/main.jpeg";
 
 interface Props {
   userDetail: DetailUserInfo;
+  openModal: () => void;
 }
 
-const ProfileBox = ({ userDetail }: Props) => {
+const ProfileBox = ({ userDetail, openModal }: Props) => {
   const { imageUrl, name, category, address, address1, address2, originalHourlyPay, description, bio } = userDetail;
 
   return (
     <article className="py-4 px-6 w-full max-w-[768px] bg-slate-50 rounded-2xl">
       <div className="flex justify-between items-center mb-4">
         <h2 className="h3">내 정보</h2>
-        <Button type="cancle" size="w-fit" clickAction={() => {}}>
+        <Button type="cancle" size="w-fit" clickAction={openModal}>
           수정하기
         </Button>
       </div>
