@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useAlertModalStore } from "@_lib/store";
+import { useAlertModalStore, userTypeStore } from "@_lib/store";
 import { getUserInfo, postEmployeeDetail, postEmployerDetail, postSignIn, postSignUp, putEmployerDetail } from "@_service/user";
 import { EmployeeDetailInfo, EmployerDetailInfo, SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
 
@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const usePostSignIn = (handleModal: () => void) => {
   const { changeText } = useAlertModalStore();
+  const { changeType } = userTypeStore();
 
   const { mutate: handleSignIn, isPending } = useMutation({
     mutationFn: (userData: SigninUserInfo) => postSignIn(userData),
@@ -18,6 +19,7 @@ export const usePostSignIn = (handleModal: () => void) => {
         localStorage.setItem("token", data.item.token);
         localStorage.setItem("userId", data.item.user.item.id);
         localStorage.setItem("userType", data.item.user.item.type);
+        changeType(data.item.user.item.type);
 
         handleModal();
       }
@@ -60,6 +62,11 @@ export const useGetUserInfo = () => {
     queryKey: ["userInfo", id],
     queryFn: async () => {
       const { data } = await getUserInfo(id);
+
+      if (data.item.shop.item) {
+        localStorage.setItem("shopId", data.item.shop.item.id);
+      }
+
       return data.item;
     },
   });

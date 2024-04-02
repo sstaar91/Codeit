@@ -7,6 +7,7 @@ import { Icon } from "@_component/UI";
 import { EMPLOYEE_DETAIL_INFO, EMPLOYER_DETAIL_INFO } from "@_context/userInfo";
 import { employeeInputList, employerInputList } from "@_constant/actionProperty";
 import { DetailUserInfo } from "@_type/userInfo";
+import useScrollBlock from "@_hook/useScrollBlock";
 
 interface Props {
   isEmployer: boolean;
@@ -18,6 +19,7 @@ const UserInfoModal = ({ isEmployer, closeModal, handleConfirmBtn }: Props) => {
   const [userDetailInfo, setUserDetailInfo] = useState<DetailUserInfo>(isEmployer ? EMPLOYER_DETAIL_INFO : EMPLOYEE_DETAIL_INFO);
   const [curSelectType, setCurSelectType] = useState("");
   const { userInfo } = useGetUserInfo();
+  useScrollBlock();
 
   const { postUserDetail, postLoading } = usePostUserDetail(isEmployer, closeModal, handleConfirmBtn);
   const { putUserDetail, putLoading } = usePutUserDetail(isEmployer, closeModal, handleConfirmBtn);

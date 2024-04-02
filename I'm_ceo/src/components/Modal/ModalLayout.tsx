@@ -1,7 +1,7 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { Modal } from "@mui/base";
 
-import { UserInfoModal, AlertModal } from ".";
+import { UserInfoModal, AlertModal, NoticeModal } from ".";
 
 import "./modal.css";
 
@@ -17,15 +17,8 @@ const ModalLayout = ({ category, type, status, handleConfirmBtn = () => {}, clos
   const modalList: { [key: string]: ReactNode } = {
     sign: <AlertModal handleConfirmBtn={handleConfirmBtn} />,
     user: <UserInfoModal isEmployer={type === "employer"} closeModal={closeModal} handleConfirmBtn={handleConfirmBtn} />,
+    notice: <NoticeModal closeModal={closeModal} handleConfirmBtn={handleConfirmBtn} />,
   };
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, []);
 
   return (
     <Modal open={status} onClick={closeModal} className="dimmedBackground flexCenterColumn z-50">

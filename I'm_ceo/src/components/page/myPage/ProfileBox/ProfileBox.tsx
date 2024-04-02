@@ -15,7 +15,7 @@ const ProfileBox = ({ userDetail, openModal }: Props) => {
   return (
     <article className="py-4 px-6 w-full max-w-[768px] bg-slate-50 rounded-2xl">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="h3">내 정보</h2>
+        <h2 className="h4">등록 정보</h2>
         <Button type="cancle" size="w-fit" clickAction={openModal}>
           수정하기
         </Button>
@@ -38,10 +38,10 @@ const ProfileBox = ({ userDetail, openModal }: Props) => {
           {originalHourlyPay && (
             <div className="flex items-center gap-1 align-top desc2">
               <Icon type="money" size="w-5" />
-              <h3>{Number(originalHourlyPay).toLocaleString("ko-KR")} 원</h3>
+              <h3> {Number(originalHourlyPay).toLocaleString("ko-KR")} 원 (최초 창업비용) </h3>
             </div>
           )}
-          <div className=" p-2 desc2 w-full h-full bg-transparent border-dashed border-2 rounded-lg">
+          <div className=" p-2 desc2 w-full h-full bg-transparent border-dashed border-2 rounded-lg bg-white">
             <h3>{description || bio}</h3>
           </div>
         </div>

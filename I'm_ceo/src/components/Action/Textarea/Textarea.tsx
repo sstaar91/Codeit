@@ -14,7 +14,7 @@ const Textarea = ({ type, value, handleInput }: Props) => {
   return (
     <textarea
       className="desc2 row-span-2 p-2 h-[100px] w-full bg-transparent border-dashed border-2 rounded-lg resize-none focus:outline-none focus:border-main"
-      placeholder={`${placeholder}에 대한 소개를 작성해주세요`}
+      placeholder={`${placeholder}에 대한 설명을 입력해주세요`}
       name={name}
       value={value}
       onChange={handleInput}

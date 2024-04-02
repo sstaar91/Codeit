@@ -60,7 +60,7 @@ const MenuList = () => {
     <>
       {isLoginUser && (
         <li className="cursor-pointer hover:text-main">
-          <Link to={"/mypage"}>내 가게</Link>
+          <Link to={"/mypage"}>등록 정보</Link>
         </li>
       )}
       <li className="cursor-pointer hover:text-main">{isLoginUser ? <span onClick={onLogOut}>로그아웃</span> : <Link to={"/sign"}>로그인</Link>}</li>

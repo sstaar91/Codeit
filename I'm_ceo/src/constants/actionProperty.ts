@@ -5,26 +5,14 @@ export const inputProperty: {
   };
 } = {
   email: { type: "text", placeholder: "이메일을 입력해주세요" },
-  password: {
-    type: "password",
-    placeholder: "비밀번호를 입력해주세요",
-  },
-  name: {
-    type: "text",
-    placeholder: "이름을 적어주세요",
-  },
-  phone: {
-    type: "number",
-    placeholder: "핸드폰 번호를 적어주세요",
-  },
-  address2: {
-    type: "text",
-    placeholder: "상세 주소를 작성해주세요",
-  },
-  originalHourlyPay: {
-    type: "number",
-    placeholder: "최소 창업 비용을 기입해주세요",
-  },
+  password: { type: "password", placeholder: "비밀번호를 입력해주세요" },
+  name: { type: "text", placeholder: "이름을 적어주세요" },
+  phone: { type: "number", placeholder: "핸드폰 번호를 적어주세요" },
+  address2: { type: "text", placeholder: "상세 주소를 작성해주세요" },
+  originalHourlyPay: { type: "number", placeholder: "최소 창업 비용을 기입해주세요" },
+  hourlyPay: { type: "number", placeholder: "평균 매출 비용을 적어주세요" },
+  startsAt: { type: "date", placeholder: "공고 시작일을 선택해주세요" },
+  workhour: { type: "number", placeholder: "평균 업무 시간을 적어주세요" },
 };
 
 export const userRadioList = [
@@ -47,6 +35,13 @@ export const employeeInputList = [
   { id: 2, name: "phone", component: "input" },
   { id: 3, name: "address", component: "select" },
   { id: 4, name: "bio", component: "textarea" },
+];
+
+export const registeNoticeList = [
+  { id: 1, name: "hourlyPay", component: "input" },
+  { id: 2, name: "startsAt", component: "input" },
+  { id: 3, name: "workhour", component: "input" },
+  { id: 4, name: "description", component: "textarea" },
 ];
 
 export const categorySelectList = ["한식", "중식", "일식", "양식", "분식", "카페", "편의점", "기타"];
@@ -86,4 +81,5 @@ export const textareaProperty: {
 } = {
   employer: { name: "description", placeholder: "본사" },
   employee: { name: "bio", placeholder: "점주님" },
+  notice: { name: "description", placeholder: "공고" },
 };

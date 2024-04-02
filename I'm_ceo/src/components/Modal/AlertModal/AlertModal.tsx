@@ -1,11 +1,13 @@
 import { useAlertModalStore } from "@_lib/store";
 import { Button } from "@_component/Action";
+import useScrollBlock from "@_hook/useScrollBlock";
 
 interface Props {
   handleConfirmBtn: () => void;
 }
 
 const AlertModal = ({ handleConfirmBtn }: Props) => {
+  useScrollBlock();
   const { title, description } = useAlertModalStore();
 
   return (

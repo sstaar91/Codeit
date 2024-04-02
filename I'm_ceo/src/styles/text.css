@@ -25,3 +25,7 @@
 .desc3 {
   @apply text-xs font-normal;
 }
+
+.label {
+  @apply text-xs font-bold;
+}
