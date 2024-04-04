@@ -6,6 +6,7 @@ import { getUserInfo, postEmployeeDetail, postEmployerDetail, postSignIn, postSi
 import { EmployeeDetailInfo, EmployerDetailInfo, SigninUserInfo, SignupUserInfo } from "@_type/userInfo";
 
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 export const usePostSignIn = (handleModal: () => void) => {
   const { changeText } = useAlertModalStore();
@@ -58,24 +59,22 @@ export const usePostSignUp = (handleModal: () => void) => {
 export const useGetUserInfo = () => {
   const id = localStorage.getItem("userId") || "";
 
-  const { data, isError, isPending, refetch } = useQuery({
+  const { data, isSuccess, isError, isPending, refetch } = useQuery({
     queryKey: ["userInfo", id],
-    queryFn: async () => {
-      const { data } = await getUserInfo(id);
-
-      if (data.item.shop.item) {
-        localStorage.setItem("shopId", data.item.shop.item.id);
-      }
-
-      return data.item;
-    },
+    queryFn: () => getUserInfo(id),
   });
+
+  if (isSuccess) {
+    if (data?.data.item.shop) {
+      localStorage.setItem("shopId", data?.data.item.shop.item.id);
+    }
+  }
 
   if (isError) {
     toast.error("다시 시도해주세요!");
   }
 
-  return { userInfo: data, userInfoLoading: isPending, refetch };
+  return { userInfo: data?.data.item, userInfoLoading: isPending, refetch };
 };
 
 export const usePostUserDetail = (isEmployer: boolean, closeModal: () => void, refetch: () => void) => {

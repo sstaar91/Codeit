@@ -4,9 +4,9 @@ import { useGetUserInfo } from "@_hook/useHandleUser";
 import { useGetNotice } from "@_hook/useHandleNotice";
 import { userTypeStore } from "@_lib/store";
 
+import { EmptyBox, NoticeBox, ProfileBox } from "@_component/page/myPage";
 import { ModalLayout } from "@_component/Modal";
 import { Loading } from "@_component/UI";
-import { EmptyBox, NoticeBox, ProfileBox } from "@_component/page/myPage";
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -18,9 +18,9 @@ const MyPage = () => {
   const { type, isEmployer } = userTypeStore();
 
   const isRegistUser = isEmployer ? userInfo?.shop : userInfo?.name;
-  const isRegistNotice = isEmployer ? userInfo?.shop.item : "";
+  const isRegistNotice = noticeData?.count !== 0;
   const userDetail = isEmployer ? userInfo?.shop?.item : userInfo;
-  const noticeList = isEmployer && noticeData;
+  const noticeList = noticeData?.items;
 
   const handleModal = (value: string) => {
     setCurModal(value);

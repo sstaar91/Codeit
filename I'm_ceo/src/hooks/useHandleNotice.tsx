@@ -1,8 +1,9 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getNotice, postApplyNotice } from "@_service/notice";
-import { NoticeInputType } from "@_type/notice";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { userTypeStore } from "@_lib/store";
+import { getShopNotice, getUserNotice, postApplyNotice } from "@_service/notice";
+import { NoticeInputType } from "@_type/notice";
 
 export const usePostApplyNotice = (handleModal: () => void) => {
   const { mutate: handleApplyNotice, isPending } = useMutation({
@@ -25,20 +26,41 @@ export const usePostApplyNotice = (handleModal: () => void) => {
 };
 
 export const useGetNotice = () => {
-  const id = localStorage.getItem("shopId") || "";
+  const shopId = localStorage.getItem("shopId") as string;
+  const userId = localStorage.getItem("userId") as string;
+  const { isEmployer } = userTypeStore();
 
-  const { data, isError, isPending, refetch } = useQuery({
-    queryKey: ["notice"],
-    queryFn: async () => {
-      const { data } = await getNotice(id);
-
-      return data.items;
-    },
+  const {
+    data: shopNotice,
+    isError: shopNoticeError,
+    isPending: shopNoticeLoading,
+    refetch: shopNoticeFetch,
+  } = useQuery({
+    queryKey: ["shopNotice", shopId],
+    queryFn: () => getShopNotice(shopId),
+    enabled: !!shopId,
   });
 
-  if (isError) {
+  const {
+    data: userNotice,
+    isError: userNoticeError,
+    isPending: userNoticeLoading,
+    refetch: userNoticeFetch,
+  } = useQuery({
+    queryKey: ["userNotice", userId],
+    queryFn: () => getUserNotice(userId),
+    enabled: shopId === null,
+  });
+
+  if (shopNoticeError && userNoticeError) {
     toast.error("다시 시도해주세요!");
   }
 
-  return { noticeData: data, noticeLoading: isPending, reNoticeFetch: refetch };
+  const data = {
+    noticeData: isEmployer ? shopNotice?.data : userNotice?.data,
+    noticeLoading: isEmployer ? shopNoticeLoading : userNoticeLoading,
+    reNoticeFetch: isEmployer ? shopNoticeFetch : userNoticeFetch,
+  };
+
+  return data;
 };
