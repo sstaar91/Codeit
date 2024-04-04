@@ -10,6 +10,10 @@
   @apply bg-white border-2 border-main text-main;
 }
 
+.move {
+  @apply bg-white border-2 border-green-200 text-black;
+}
+
 .disabled {
   @apply bg-slate-200 border-2 border-slate-400 text-white cursor-not-allowed transition-all;
 }
