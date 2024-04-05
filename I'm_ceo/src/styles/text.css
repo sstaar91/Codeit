@@ -29,3 +29,7 @@
 .label {
   @apply text-xs font-bold;
 }
+
+.noticeCategory {
+  @apply px-1 desc3 text-main w-[50px];
+}

@@ -1,9 +1,30 @@
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { userTypeStore } from "@_lib/store";
-import { getShopNotice, getUserNotice, postApplyNotice } from "@_service/notice";
+import { getNotices, getShopNotice, getUserNotice, postApplyNotice } from "@_service/notice";
 import { NoticeInputType } from "@_type/notice";
+
+export const useGetNoticeList = () => {
+  const [searchParams] = useSearchParams();
+
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["notices"],
+    retry: 2,
+    queryFn: () => getNotices(searchParams.toString()),
+  });
+
+  if (isError) {
+    toast.error("데이터를 불러올 수 없습니다!");
+  }
+
+  return {
+    notice: data?.data.items,
+    total: data?.data.count,
+    isLoading: isPending,
+  };
+};
 
 export const usePostApplyNotice = (handleModal: () => void) => {
   const { mutate: handleApplyNotice, isPending } = useMutation({

@@ -11,8 +11,8 @@ interface Props {
 const Select = ({ type, value, open, onClickDropDown, onSelectOption }: Props) => {
   const placeholderList: { [key: string]: string } = {
     category: "업종을 선택해주세요",
-    address: "지역을 선택해주세요",
-    address1: "지역을 선택해주세요",
+    address: "선호 지역을 선택해주세요",
+    address1: "본사 위치를 선택해주세요",
   };
 
   const optionList: { [key: string]: string[] } = {

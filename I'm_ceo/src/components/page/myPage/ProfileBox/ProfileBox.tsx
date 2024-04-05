@@ -38,7 +38,7 @@ const ProfileBox = ({ userDetail, openModal }: Props) => {
           {originalHourlyPay && (
             <div className="flex items-center gap-1 align-top desc2">
               <Icon type="money" size="w-5" />
-              <h3> {Number(originalHourlyPay).toLocaleString("ko-KR")} 원 (최초 창업비용) </h3>
+              <h3> {Number(originalHourlyPay).toLocaleString("ko-KR")} 원 (기본 기술 비용) </h3>
             </div>
           )}
           <div className=" p-2 desc2 w-full h-full bg-transparent border-dashed border-2 rounded-lg bg-white">

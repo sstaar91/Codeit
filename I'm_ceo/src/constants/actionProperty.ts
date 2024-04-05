@@ -9,15 +9,15 @@ export const inputProperty: {
   name: { type: "text", placeholder: "이름을 적어주세요" },
   phone: { type: "number", placeholder: "핸드폰 번호를 적어주세요" },
   address2: { type: "text", placeholder: "상세 주소를 작성해주세요" },
-  originalHourlyPay: { type: "number", placeholder: "최소 창업 비용을 기입해주세요" },
-  hourlyPay: { type: "number", placeholder: "평균 매출 비용을 적어주세요" },
+  originalHourlyPay: { type: "number", placeholder: "평균 비용을 기입해주세요" },
+  hourlyPay: { type: "number", placeholder: "기술 비용을 적어주세요" },
   startsAt: { type: "date", placeholder: "공고 시작일을 선택해주세요" },
-  workhour: { type: "number", placeholder: "평균 업무 시간을 적어주세요" },
+  workhour: { type: "number", placeholder: "평균 습득 시간을 적어주세요" },
 };
 
 export const userRadioList = [
-  { id: 1, title: "👩‍🍳 가맹점주", name: "type", type: "employee" },
-  { id: 2, title: "👨‍💻 본사", name: "type", type: "employer" },
+  { id: 1, title: "👩‍🍳 수제자", name: "type", type: "employee" },
+  { id: 2, title: "👨‍💻 장인", name: "type", type: "employer" },
 ];
 
 export const employerInputList = [
@@ -79,7 +79,7 @@ export const textareaProperty: {
     placeholder: string;
   };
 } = {
-  employer: { name: "description", placeholder: "본사" },
-  employee: { name: "bio", placeholder: "점주님" },
+  employer: { name: "description", placeholder: "장인" },
+  employee: { name: "bio", placeholder: "제자" },
   notice: { name: "description", placeholder: "공고" },
 };

@@ -1,3 +1,9 @@
+import { ShopDataType } from "./userInfo";
+
+export interface INoticeList {
+  item: NoticeListType;
+}
+
 export interface NoticeInputType {
   [key: string]: string | number;
   hourlyPay: number;
@@ -13,4 +19,8 @@ export interface NoticeListType {
   hourlyPay: string;
   startsAt: string;
   workhour: string;
+  shop?: {
+    href: string;
+    item: ShopDataType;
+  };
 }

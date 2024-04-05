@@ -4,6 +4,7 @@ import { useGetUserInfo } from "@_hook/useHandleUser";
 import { useGetNotice } from "@_hook/useHandleNotice";
 import { userTypeStore } from "@_lib/store";
 
+import { PageLayout } from "@_component/Layout";
 import { EmptyBox, NoticeBox, ProfileBox } from "@_component/page/myPage";
 import { ModalLayout } from "@_component/Modal";
 import { Loading } from "@_component/UI";
@@ -37,7 +38,7 @@ const MyPage = () => {
   if (userInfoLoading && noticeLoading) return <Loading />;
 
   return (
-    <main className="mt-20 flexCenterColumn px-6 py-4">
+    <PageLayout>
       {!isRegistUser && <EmptyBox status="userInfo" btnText="등록하기" clickConfirm={() => handleModal("user")} />}
       {isRegistUser && <ProfileBox userDetail={userDetail} openModal={() => handleModal("user")} />}
       {isRegistUser && !isRegistNotice && (
@@ -45,7 +46,7 @@ const MyPage = () => {
       )}
       {isRegistNotice && <NoticeBox noticeList={noticeList} />}
       <ModalLayout category={curModal} type={type} status={curModal !== ""} closeModal={() => handleModal("")} handleConfirmBtn={onClickConfirmBtn} />
-    </main>
+    </PageLayout>
   );
 };
 

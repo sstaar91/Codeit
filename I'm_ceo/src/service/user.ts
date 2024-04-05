@@ -23,5 +23,5 @@ export const postEmployerDetail = (body: EmployerDetailInfo) => {
 };
 
 export const putEmployerDetail = (body: EmployerDetailInfo) => {
-  return api.put(`${import.meta.env.VITE_BASE_URL}/shops`, body);
+  return api.put(`${import.meta.env.VITE_BASE_URL}/shops/${localStorage.getItem("shopId")}`, body);
 };

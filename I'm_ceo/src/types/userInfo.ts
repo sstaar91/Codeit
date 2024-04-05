@@ -25,16 +25,7 @@ export interface GetUserInfo {
   address?: string;
   bio?: string;
   shop: {
-    item: {
-      id: string;
-      name: string;
-      category: string;
-      address1: string;
-      address2: string;
-      description: string;
-      imageUrl: string;
-      originalHourlyPay: number;
-    };
+    item: ShopDataType;
   } | null;
 }
 
@@ -57,4 +48,15 @@ export interface EmployerDetailInfo {
   originalHourlyPay?: number | null;
   imageUrl?: string;
   description?: string;
+}
+
+export interface ShopDataType {
+  id: string;
+  name: string;
+  category: string;
+  address1: string;
+  address2: string;
+  description: string;
+  imageUrl: string;
+  originalHourlyPay: number;
 }

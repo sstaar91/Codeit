@@ -1,5 +1,10 @@
 import { api } from "@_lib/api";
+import axios from "axios";
 import { NoticeInputType } from "@_type/notice";
+
+export const getNotices = (query: string) => {
+  return axios.get(`${import.meta.env.VITE_BASE_URL}/notices?${query}&limit=6`);
+};
 
 export const postApplyNotice = (body: NoticeInputType) => {
   return api.post(`${import.meta.env.VITE_BASE_URL}/shops/${localStorage.getItem("shopId")}/notices`, body);

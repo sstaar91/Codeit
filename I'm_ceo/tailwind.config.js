@@ -13,7 +13,9 @@ export default {
       },
     },
     screens: {
+      mobile: { max: "425px" },
       sm: { max: "475px" },
+      mainNotice: { min: "426px", max: "600px" },
       md: { min: "476px", max: "768px" },
       lg: { min: "769px" },
     },
