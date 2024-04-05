@@ -17,3 +17,7 @@ export const getShopNotice = (id: string) => {
 export const getUserNotice = (id: string) => {
   return api.get(`${import.meta.env.VITE_BASE_URL}/users/${id}/applications?limit=6`);
 };
+
+export const getNoticeDetail = (shopId: string, noticeId: string) => {
+  return axios.get(`${import.meta.env.VITE_BASE_URL}/shops/${shopId}/notices/${noticeId}`);
+};

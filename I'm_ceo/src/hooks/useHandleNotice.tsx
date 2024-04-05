@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { userTypeStore } from "@_lib/store";
-import { getNotices, getShopNotice, getUserNotice, postApplyNotice } from "@_service/notice";
+import { getNoticeDetail, getNotices, getShopNotice, getUserNotice, postApplyNotice } from "@_service/notice";
 import { NoticeInputType } from "@_type/notice";
 
 export const useGetNoticeList = () => {
@@ -84,4 +84,20 @@ export const useGetNotice = () => {
   };
 
   return data;
+};
+
+export const useGetNoticeDetail = () => {
+  const shopId = localStorage.getItem("shopId") as string;
+  const noticeId = localStorage.getItem("noticeId") as string;
+
+  const { data, isError, isPending } = useQuery({
+    queryKey: ["noticeDetail", noticeId],
+    queryFn: () => getNoticeDetail(shopId, noticeId),
+  });
+
+  if (isError) {
+    toast.error("다시 시도해주세요!");
+  }
+
+  return { data: data?.data.item, isPending };
 };

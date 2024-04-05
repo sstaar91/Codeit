@@ -24,3 +24,18 @@ export interface NoticeListType {
     item: ShopDataType;
   };
 }
+
+export interface InfoDetail {
+  imageUrl?: string;
+  name?: string;
+  address1?: string;
+  address2?: string;
+  workhour?: string;
+  category?: string;
+  startsAt?: string;
+  hourlyPay?: string;
+  description?: string;
+  originalHourlyPay?: string;
+  bio?: string;
+  address?: string;
+}

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useGetNoticeList } from "@_hook/useHandleNotice";
+
 import { PageLayout } from "@_component/Layout";
 import { Loading } from "@_component/UI";
 import { INoticeList } from "@_type/notice";
@@ -7,6 +8,12 @@ import { INoticeList } from "@_type/notice";
 const Main = () => {
   const navigate = useNavigate();
   const { notice, isLoading } = useGetNoticeList();
+
+  const onClickNoitce = (shopId: string, noticeId: string) => {
+    localStorage.setItem("noticeId", noticeId);
+    localStorage.setItem("shopId", shopId);
+    navigate(`/notice/${noticeId}`);
+  };
 
   if (isLoading) return <Loading />;
 
@@ -22,9 +29,7 @@ const Main = () => {
             return (
               <div
                 key={item.id}
-                onClick={() => {
-                  navigate(`/notice/${item.id}`);
-                }}
+                onClick={() => onClickNoitce(shopInfo.id, item.id)}
                 className="flex flex-col mobile:flex-row gap-2 py-3 px-4 rounded-xl bg-white w-1/3 mainNotice:w-1/2 mobile:w-full"
               >
                 <div className="rounded-lg overflow-hidden mobile:w-2/5">
