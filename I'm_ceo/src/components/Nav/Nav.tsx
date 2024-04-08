@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon, Logo } from "@_component/UI";
+import { userTypeStore } from "@_lib/store";
 
 const Nav = () => {
   const [curWindowSize, setCurWindowSize] = useState(window.innerWidth);
@@ -50,6 +51,15 @@ export default Nav;
 const MenuList = () => {
   const navigate = useNavigate();
   const isLoginUser = localStorage.getItem("token");
+  const { isEmployer } = userTypeStore();
+
+  const goToMyPage = () => {
+    if (!isEmployer) {
+      localStorage.removeItem("shopId");
+    }
+    localStorage.removeItem("noticeId");
+    navigate("/mypage");
+  };
 
   const onLogOut = () => {
     localStorage.clear();
@@ -59,8 +69,8 @@ const MenuList = () => {
   return (
     <>
       {isLoginUser && (
-        <li className="cursor-pointer hover:text-main">
-          <Link to={"/mypage"}>등록 정보</Link>
+        <li className="cursor-pointer hover:text-main" onClick={goToMyPage}>
+          등록 정보
         </li>
       )}
       <li className="cursor-pointer hover:text-main">{isLoginUser ? <span onClick={onLogOut}>로그아웃</span> : <Link to={"/sign"}>로그인</Link>}</li>

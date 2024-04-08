@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { userTypeStore } from "@_lib/store";
-import { getNoticeDetail, getNotices, getShopNotice, getUserNotice, postApplyNotice } from "@_service/notice";
+import { getNoticeDetail, getNotices, getShopNotice, getUserNotice, postApplyNotice, putNoticeDetail } from "@_service/notice";
 import { NoticeInputType } from "@_type/notice";
 
 export const useGetNoticeList = () => {
@@ -88,16 +88,40 @@ export const useGetNotice = () => {
 
 export const useGetNoticeDetail = () => {
   const shopId = localStorage.getItem("shopId") as string;
-  const noticeId = localStorage.getItem("noticeId") as string;
+  const noticeId = localStorage.getItem("noticeId");
 
-  const { data, isError, isPending } = useQuery({
+  const { data, isError, isPending, refetch } = useQuery({
     queryKey: ["noticeDetail", noticeId],
-    queryFn: () => getNoticeDetail(shopId, noticeId),
+    queryFn: () => getNoticeDetail(shopId, noticeId || ""),
+    enabled: !!noticeId,
   });
 
   if (isError) {
     toast.error("다시 시도해주세요!");
   }
 
-  return { data: data?.data.item, isPending };
+  return { data: data?.data.item, isPending, refetch };
+};
+
+export const usePutNoticeDetail = (handleModal: () => void) => {
+  const shopId = localStorage.getItem("shopId") as string;
+  const noticeId = localStorage.getItem("noticeId") as string;
+
+  const { mutate: handleNoticeDetail, isPending: isModifyNotice } = useMutation({
+    mutationFn: (userData: NoticeInputType) => putNoticeDetail(shopId, noticeId, userData),
+    onSuccess: ({ data }) => {
+      if (data.item) {
+        toast.success("공고 수정이 완료되었습니다");
+        handleModal();
+      }
+    },
+    onError: (e: AxiosError) => {
+      if (e.response?.data) {
+        const { data }: any = e.response;
+        toast.error(`${data.message || "다시 시도해주세요"}`);
+      }
+    },
+  });
+
+  return { handleNoticeDetail, isModifyNotice };
 };

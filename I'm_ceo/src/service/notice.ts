@@ -21,3 +21,7 @@ export const getUserNotice = (id: string) => {
 export const getNoticeDetail = (shopId: string, noticeId: string) => {
   return axios.get(`${import.meta.env.VITE_BASE_URL}/shops/${shopId}/notices/${noticeId}`);
 };
+
+export const putNoticeDetail = (shopId: string, noticeId: string, body: NoticeInputType) => {
+  return api.put(`${import.meta.env.VITE_BASE_URL}/shops/${shopId}/notices/${noticeId}`, body);
+};

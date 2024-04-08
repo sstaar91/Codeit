@@ -1,6 +1,7 @@
-import { ChangeEvent, Fragment, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
+import moment from "moment";
 import useScrollBlock from "@_hook/useScrollBlock";
-import { usePostApplyNotice } from "@_hook/useHandleNotice";
+import { useGetNoticeDetail, usePostApplyNotice, usePutNoticeDetail } from "@_hook/useHandleNotice";
 
 import { Button, Input, Textarea } from "@_component/Action";
 import { Icon } from "@_component/UI";
@@ -17,6 +18,8 @@ interface Props {
 const NoticeModal = ({ closeModal, handleConfirmBtn }: Props) => {
   const [noticeInfo, setNoticeInfo] = useState<NoticeInputType>(NOTICE_INFO);
   const { handleApplyNotice, isPending } = usePostApplyNotice(successNotice);
+  const { handleNoticeDetail } = usePutNoticeDetail(successNotice);
+  const { data } = useGetNoticeDetail();
 
   function successNotice() {
     closeModal();
@@ -31,14 +34,30 @@ const NoticeModal = ({ closeModal, handleConfirmBtn }: Props) => {
   };
 
   const onSendNotice = () => {
-    handleApplyNotice({ ...noticeInfo, startsAt: `${noticeInfo.startsAt}T00:00:00Z` });
+    const sendData = { ...noticeInfo, startsAt: `${noticeInfo.startsAt}T00:00:00Z` };
+    data?.description ? handleNoticeDetail(sendData) : handleApplyNotice(sendData);
   };
 
   const isAllInfoEntered = Object.values(noticeInfo).every((el) => el);
 
+  useEffect(() => {
+    if (!data?.description) return;
+
+    const infoKeys = Object.keys(noticeInfo);
+    const newInfos = { ...noticeInfo };
+    infoKeys.forEach((el) => {
+      if (el === "startsAt") {
+        return (newInfos[el] = moment(data[el]).format("YYYY-MM-DD"));
+      }
+      newInfos[el] = data[el];
+    });
+
+    setNoticeInfo(newInfos);
+  }, []);
+
   return (
     <article className="flexCenterColumn modalBox gap-4" onClick={(e) => e.stopPropagation()}>
-      <h2 className="w-full text-left h4 pl-2">공고 등록</h2>
+      <h2 className="w-full text-left h4 pl-2">{data?.description ? "공고 수정" : "공고 등록"}</h2>
       <div className={`grid gap-x-4 w-full mb-4 px-2 sm:flex sm:flex-col sm:gap-2`}>
         {registeNoticeList.map((el) => {
           return (

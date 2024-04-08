@@ -5,9 +5,9 @@ import { useGetNotice } from "@_hook/useHandleNotice";
 import { userTypeStore } from "@_lib/store";
 
 import { PageLayout } from "@_component/Layout";
-import { EmptyBox, NoticeBox, ProfileBox } from "@_component/page/myPage";
+import { EmptyBox, NoticeBox } from "@_component/page/myPage";
 import { ModalLayout } from "@_component/Modal";
-import { Loading } from "@_component/UI";
+import { InfoCard, Loading } from "@_component/UI";
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -40,11 +40,11 @@ const MyPage = () => {
   return (
     <PageLayout>
       {!isRegistUser && <EmptyBox status="userInfo" btnText="등록하기" clickConfirm={() => handleModal("user")} />}
-      {isRegistUser && <ProfileBox userDetail={userDetail} openModal={() => handleModal("user")} />}
+      {isRegistUser && <InfoCard infoDetail={userDetail} openModal={() => handleModal("user")} />}
       {isRegistUser && !isRegistNotice && (
         <EmptyBox status="notice" btnText={isEmployer ? "등록하기" : "공고 보기"} clickConfirm={onClickNoticeBtn} />
       )}
-      {isRegistNotice && <NoticeBox noticeList={noticeList} />}
+      {isRegistNotice && <NoticeBox noticeList={noticeList} handleModal={handleModal} />}
       <ModalLayout category={curModal} type={type} status={curModal !== ""} closeModal={() => handleModal("")} handleConfirmBtn={onClickConfirmBtn} />
     </PageLayout>
   );

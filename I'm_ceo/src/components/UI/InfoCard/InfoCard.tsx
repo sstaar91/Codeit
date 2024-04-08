@@ -5,6 +5,7 @@ import { Icon } from "@_component/UI";
 
 import { InfoDetail } from "@_type/notice";
 import defaultImage from "@_asset/images/main.jpeg";
+import { userTypeStore } from "@_lib/store";
 
 interface Props {
   infoDetail: InfoDetail;
@@ -13,6 +14,7 @@ interface Props {
 
 const InfoCard = ({ infoDetail, openModal }: Props) => {
   const { pathname } = useLocation();
+  const { isEmployer } = userTypeStore();
   const isNoticePage = pathname.includes("notice");
 
   const { imageUrl, name, address1, address2, workhour, category, startsAt, hourlyPay, description, originalHourlyPay, bio, address } =
@@ -22,9 +24,11 @@ const InfoCard = ({ infoDetail, openModal }: Props) => {
     <article className="py-4 px-6 w-full max-w-[768px] bg-slate-50 rounded-2xl">
       <div className="flex justify-between items-center">
         <h2 className="h4">{isNoticePage ? "공고 상세" : "등록 정보"}</h2>
-        <Button type="cancle" size="w-fit" clickAction={openModal}>
-          수정하기
-        </Button>
+        {!(isNoticePage && !isEmployer) && (
+          <Button type="cancle" size="w-fit" clickAction={openModal}>
+            수정하기
+          </Button>
+        )}
       </div>
       {startsAt && <span className="mb-2 text-xs text-gray-400">공고 등록 일자 : {moment(startsAt).format("YYYY-MM-DD")}</span>}
       <div className="grid grid-cols-2 sm:grid-cols-1 mt-2 gap-4">
@@ -45,7 +49,19 @@ const InfoCard = ({ infoDetail, openModal }: Props) => {
           {originalHourlyPay && (
             <div className="flex items-center gap-1 align-top desc2">
               <Icon type="money" size="w-5" />
-              <h3> {Number(originalHourlyPay).toLocaleString("ko-KR")} 원 (기본 기술 비용) </h3>
+              <h3>{Number(originalHourlyPay).toLocaleString("ko-KR")} 원 (기본 기술 비용) </h3>
+            </div>
+          )}
+          {hourlyPay && (
+            <div className="flex items-center gap-1 align-top desc2">
+              <Icon type="money" size="w-5" />
+              <h3>{Number(hourlyPay).toLocaleString("ko-KR")} 원 (기술 비용) </h3>
+            </div>
+          )}
+          {workhour && (
+            <div className="flex items-center gap-1 align-top desc2">
+              <Icon type="clock" size="w-5" />
+              <h3>{Number(workhour).toLocaleString("ko-KR")} 시간 (기술 습득 시간) </h3>
             </div>
           )}
           <div className=" p-2 desc2 w-full h-full bg-transparent border-dashed border-2 rounded-lg bg-white">
